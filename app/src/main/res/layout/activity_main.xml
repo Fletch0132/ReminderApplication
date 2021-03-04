@@ -58,6 +58,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
                 <LinearLayout
+                    android:id="@+id/btnCalendar"
                     android:orientation="vertical"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
@@ -83,6 +84,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
                 <LinearLayout
+                    android:id="@+id/btnCreateRem"
                     android:orientation="vertical"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
@@ -109,6 +111,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
                 <LinearLayout
+                    android:id="@+id/btnMap"
                     android:orientation="vertical"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
@@ -148,6 +151,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
                 <LinearLayout
+                    android:id="@+id/btnNotes"
                     android:orientation="vertical"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
@@ -173,6 +177,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
                 <LinearLayout
+                    android:id="@+id/btnHelp"
                     android:orientation="vertical"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
