@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ReminderApplication">
+        <activity android:name=".ReminderHelp"></activity>
+        <activity android:name=".ReminderNotes" />
+        <activity android:name=".ReminderMap" />
+        <activity android:name=".ReminderCreate" />
+        <activity android:name=".ReminderCalendar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
