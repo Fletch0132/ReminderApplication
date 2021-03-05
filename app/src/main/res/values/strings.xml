@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ReminderApplication</string>
+    <string name="Calendar">Calendar</string>
 </resources>
