@@ -57,13 +57,15 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnCalendar"
                     android:text="@string/Calendar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
                     android:orientation="vertical"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/btn_calendar"
+                    android:background="@drawable/btn_a"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"/>
 
@@ -76,24 +78,17 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
-                <LinearLayout
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnCreateRem"
+                    android:text="Create Reminder"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
                     android:orientation="vertical"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/btn_b"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp">
-                    <TextView
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="30dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Create\nReminder"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="20dp"/>
-                </LinearLayout>
+                    android:layout_height="120dp"/>
             </LinearLayout>
 
 
@@ -103,23 +98,18 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
-                <LinearLayout
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnMap"
+                    android:textAllCaps="false"
+                    android:text="Map"
+                    android:textColor="@color/black"
                     android:orientation="vertical"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/btn_c"
                     android:layout_width="match_parent"
                     android:layout_height="120dp">
-                    <TextView
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="45dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Map"
-                        android:textColor="@color/black"
-                        android:textSize="20dp"/>
-                </LinearLayout>
+                </androidx.appcompat.widget.AppCompatButton>
             </LinearLayout>
         </LinearLayout>
 
@@ -143,23 +133,18 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
-                <LinearLayout
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnNotes"
+                    android:text="Notes"
+                    android:textColor="@color/black"
+                    android:textAllCaps="false"
                     android:orientation="vertical"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/btn_d"
                     android:layout_width="match_parent"
                     android:layout_height="120dp">
-                    <TextView
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginTop="45dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Notes"
-                        android:textColor="@color/black"
-                        android:textSize="20dp"/>
-                </LinearLayout>
+                </androidx.appcompat.widget.AppCompatButton>
             </LinearLayout>
 
 
@@ -169,24 +154,18 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content">
-                <LinearLayout
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnHelp"
+                    android:text="Self-Help"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
                     android:orientation="vertical"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/btn_e"
                     android:layout_width="match_parent"
                     android:layout_height="120dp">
-                    <TextView
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="45dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Self-Help"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="20dp"/>
-                </LinearLayout>
+                </androidx.appcompat.widget.AppCompatButton>
             </LinearLayout>
 
 
