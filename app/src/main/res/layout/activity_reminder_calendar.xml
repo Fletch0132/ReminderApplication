@@ -2,13 +2,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/BGblue"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+
+    <!-- TEXT -->
     <TextView
+        android:id="@+id/titleCalendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Calendar!"/>
+        android:layout_marginTop="28dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginBottom="10dp"
+        android:text="Calendar"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <!-- DISPLAY UPCOMING REMINDERS -->
+
+
+
+    <!-- CALENDAR BASE -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="520dp"
+        android:orientation="vertical"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="220dp"
+        android:background="@drawable/main_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- CALENDAR -->
+        <CalendarView
+            android:id="@+id/calendarDisplay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            />
+
+    </LinearLayout>
+
 
 </RelativeLayout>
