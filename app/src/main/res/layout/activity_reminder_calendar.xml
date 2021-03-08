@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:layout_marginLeft="150dp"
+        android:layout_marginLeft="160dp"
         android:layout_marginBottom="10dp"
         android:text="Calendar"
         android:textColor="@color/black"
@@ -37,7 +37,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="260dp"
         android:background="@drawable/main_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,9 +47,23 @@
         <CalendarView
             android:id="@+id/calendarDisplay"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             />
+
+        <!-- CREATE REMINDER NAV -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCreateRemCal"
+            android:text="Create Reminder"
+            android:textAllCaps="false"
+            android:textSize="18dp"
+            android:background="@drawable/btn_b"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"/>
 
     </LinearLayout>
 
