@@ -265,7 +265,7 @@
 
         <!-- REMINDER BUTTON ADD -->
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/txtAddReminder"
+            android:id="@+id/btnAddReminder"
             android:text="Add"
             android:textAllCaps="false"
             android:textSize="20dp"
