@@ -50,4 +50,7 @@ dependencies {
 
     // Jetpack Compose Integration
     implementation "androidx.navigation:navigation-compose:1.0.0-alpha08"
+
+    //Validation
+    implementation 'com.basgeekball:awesome-validation:1.3'
 }
