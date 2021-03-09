@@ -2,4 +2,13 @@
     <string name="app_name">ReminderApplication</string>
     <string name="Calendar">Calendar</string>
     <string name="title_activity_reminder_map">Map</string>
+
+    <string name="remNameError">Enter a valid Reminder name</string>
+    <string name="remStartDateError">Enter a valid start date</string>
+    <string name="remStartTimeError">Enter a valid start time</string>
+    <string name="remEndDateError">Enter a valid end date</string>
+    <string name="remEndTimeError">Enter a valid end time</string>
+    <string name="remLocationError">Enter a valid Reminder location</string>
+    <string name="remDescriptionError">Enter a valid Reminder description</string>
 </resources>
+
