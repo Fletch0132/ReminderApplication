@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,88 +37,90 @@ public class ReminderCreate extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_create);
 
-        //EDIT TEXT BOXES
-        txtRemName = (EditText) findViewById(R.id.txtRemName);
-        txtRemStartDate = (EditText) findViewById(R.id.txtRemStartDate);
-        txtRemStartTime = (EditText) findViewById(R.id.txtRemStartTime);
-        txtRemEndDate = (EditText) findViewById(R.id.txtRemEndDate);
-        txtRemEndTime = (EditText) findViewById(R.id.txtRemEndTime);
-        txtRemDescription = (EditText) findViewById(R.id.txtRemDescription);
+        try {
+            //EDIT TEXT BOXES
+            txtRemName = (EditText) findViewById(R.id.txtRemName);
+            txtRemStartDate = (EditText) findViewById(R.id.txtRemStartDate);
+            txtRemStartTime = (EditText) findViewById(R.id.txtRemStartTime);
+            txtRemEndDate = (EditText) findViewById(R.id.txtRemEndDate);
+            txtRemEndTime = (EditText) findViewById(R.id.txtRemEndTime);
+            txtRemDescription = (EditText) findViewById(R.id.txtRemDescription);
 
-        //BUTTON
-        btnAddReminder = (Button) findViewById(R.id.btnAddReminder);
+            //BUTTON
+            btnAddReminder = (Button) findViewById(R.id.btnAddReminder);
 
-        //DEFINE AWESOMEVALIDATION OBJECT
-        AwesomeValidation awesomeValidation;
-        //INITIALIZE
-        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+            //DEFINE AWESOMEVALIDATION OBJECT
+            AwesomeValidation awesomeValidation;
+            //INITIALIZE
+            awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
 
 
-        //****LOCATION****
-        // INITIALIZE PLACES
-        Places.initialize(getApplicationContext(), "AIzaSyAfNcD97aOGLWgZEP4vhaRPnyDN2eq3h8c");
-        //CHECK INITIALIZE AND PUSH FOR ONE
-        if (!Places.isInitialized()) {
-            Places.initialize(getApplicationContext(),"AIzaSyAfNcD97aOGLWgZEP4vhaRPnyDN2eq3h8c");
+
+            //****LOCATION****
+            // INITIALIZE PLACES
+            Places.initialize(getApplicationContext(), "AIzaSyAfNcD97aOGLWgZEP4vhaRPnyDN2eq3h8c");
+            //CHECK INITIALIZE AND PUSH FOR ONE
+            if (!Places.isInitialized()) {
+                Places.initialize(getApplicationContext(), "AIzaSyAfNcD97aOGLWgZEP4vhaRPnyDN2eq3h8c");
+            }
+            // CREATE A NEW PLACESCLIENT
+            PlacesClient placesClient = Places.createClient(this);
+            //INITIALIZE AUTOCOMPLETESUPPORTFRAGMENT
+            AutocompleteSupportFragment autocompleteSupportFragment = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocomplete_Fragment);
+            //SPECIFY PLACE FOR USER INPUT
+            //autocompleteSupportFragment.setTypeFilter(TypeFilter.ADDRESS);
+            //LOCATION BIAS TO HELP RESULTS
+            autocompleteSupportFragment.setLocationBias(RectangularBounds.newInstance(
+                    new LatLng(54.922195, -5.184964),
+                    new LatLng(57.695811, -2.0116)));
+            autocompleteSupportFragment.setCountries("UK");
+            //SPECIFY PLACE DATA TO RETURN
+            autocompleteSupportFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+            //RETRIEVE NAME AND ID OF PLACE
+            autocompleteSupportFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+                @Override
+                public void onPlaceSelected(Place place) {
+                    //GET INFO ON SELECTED PLACE
+                    Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+                }
+
+                @Override
+                public void onError(Status status) {
+                    //ERROR HANDLING
+                    Log.i(TAG, "An Error Occurred: " + status);
+                }
+            });
+
+
+            //VALIDATE INPUT AND STORE TO DISPLAY REMINDER AND NOTIFY USER
+            awesomeValidation.addValidation(this, R.id.txtRemName, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.remNameError);
+            awesomeValidation.addValidation(this, R.id.txtRemStartDate, "^(?=\\s*\\S).*$", R.string.remStartDateError);
+            awesomeValidation.addValidation(this, R.id.txtRemStartTime, "^(?=\\s*\\S).*$", R.string.remStartTimeError);
+            awesomeValidation.addValidation(this, R.id.txtRemEndDate, "^(?=\\s*\\S).*$", R.string.remEndDateError);
+            awesomeValidation.addValidation(this, R.id.txtRemEndTime, "^(?=\\s*\\S).*$", R.string.remEndTimeError);
+
+
+            //VALIDATE
+            if (awesomeValidation.validate()){
+                Toast.makeText(this, "Reminder Correct", Toast.LENGTH_LONG).show();
+            }
+
+
+            //BUTTON ONCLICK
+            btnAddReminder.setOnClickListener(this);
         }
-        // CREATE A NEW PLACESCLIENT
-        PlacesClient placesClient = Places.createClient(this);
-        //INITIALIZE AUTOCOMPLETESUPPORTFRAGMENT
-        AutocompleteSupportFragment autocompleteSupportFragment = (AutocompleteSupportFragment)getSupportFragmentManager().findFragmentById(R.id.autocomplete_Fragment);
-        //SPECIFY PLACE FOR USER INPUT
-        //autocompleteSupportFragment.setTypeFilter(TypeFilter.ADDRESS);
-        //LOCATION BIAS TO HELP RESULTS
-        autocompleteSupportFragment.setLocationBias(RectangularBounds.newInstance(
-                new LatLng(54.922195, -5.184964),
-                new LatLng(57.695811, -2.0116)));
-        autocompleteSupportFragment.setCountries("UK");
-        //SPECIFY PLACE DATA TO RETURN
-        autocompleteSupportFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
-        //RETRIEVE NAME AND ID OF PLACE
-        autocompleteSupportFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-                //GET INFO ON SELECTED PLACE
-                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
-            }
-
-            @Override
-            public void onError(Status status) {
-                //ERROR HANDLING
-                Log.i(TAG, "An Error Occurred: " + status);
-            }
-        });
-
-
-
-        //VALIDATE INPUT AND STORE TO DISPLAY REMINDER AND NOTIFY USER
-        awesomeValidation.addValidation(this, R.id.txtRemName, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.remNameError);
-        awesomeValidation.addValidation(this, R.id.txtRemStartDate, "^(?=\\s*\\S).*$", R.string.remStartDateError);
-        awesomeValidation.addValidation(this, R.id.txtRemStartTime, "^(?=\\s*\\S).*$", R.string.remStartTimeError);
-        awesomeValidation.addValidation(this, R.id.txtRemEndDate, "^(?=\\s*\\S).*$", R.string.remEndDateError);
-        awesomeValidation.addValidation(this, R.id.txtRemEndTime, "^(?=\\s*\\S).*$", R.string.remEndTimeError);
-
-
-
-        //BUTTON ONCLICK
-        btnAddReminder.setOnClickListener(this);
-    }
-
-
-
-    //VALIDATES REMINDER AND STORES
-    public void submitReminder(){
-
+        catch (Exception exception){
+            Log.e(TAG, "Error Occurred");
+        }
     }
 
 
     //ONCLICK
     @Override
-    public void onClick(View v) {
-        if (v == btnAddReminder){
-            submitReminder();
+    public void onClick(View view) {
+        if (view == btnAddReminder) {
+            Toast.makeText(this,"Works", Toast.LENGTH_LONG).show();
         }
-
-
     }
+
 }
