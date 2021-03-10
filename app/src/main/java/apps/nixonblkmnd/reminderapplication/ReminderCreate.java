@@ -1,6 +1,7 @@
 package apps.nixonblkmnd.reminderapplication;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +10,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+
+import static android.content.ContentValues.TAG;
 
 
 public class ReminderCreate extends AppCompatActivity implements View.OnClickListener {
@@ -34,6 +47,37 @@ public class ReminderCreate extends AppCompatActivity implements View.OnClickLis
         AwesomeValidation awesomeValidation;
         //INITIALIZE
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+
+        // Initialize Places.
+        Places.initialize(getApplicationContext(), "AIzaSyAfNcD97aOGLWgZEP4vhaRPnyDN2eq3h8c");
+        // Create a new PlacesClient instance
+        PlacesClient placesClient = Places.createClient(this);
+
+
+
+        // Initialize the AutocompleteSupportFragment.
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        // Specify the types of place data to return.
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+
+        // Set up a PlaceSelectionListener to handle the response.
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NotNull Place place) {
+                // TODO: Get info about the selected place.
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+            }
+
+
+            @Override
+            public void onError(@NotNull Status status) {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+
 
 
 
