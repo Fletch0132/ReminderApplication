@@ -15,7 +15,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
-import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
@@ -57,12 +56,16 @@ public class ReminderCreate extends AppCompatActivity implements View.OnClickLis
         //****LOCATION****
         // INITIALIZE PLACES
         Places.initialize(getApplicationContext(), "AIzaSyAfNcD97aOGLWgZEP4vhaRPnyDN2eq3h8c");
+        //CHECK INITIALIZE AND PUSH FOR ONE
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(),"AIzaSyAfNcD97aOGLWgZEP4vhaRPnyDN2eq3h8c");
+        }
         // CREATE A NEW PLACESCLIENT
         PlacesClient placesClient = Places.createClient(this);
         //INITIALIZE AUTOCOMPLETESUPPORTFRAGMENT
         AutocompleteSupportFragment autocompleteSupportFragment = (AutocompleteSupportFragment)getSupportFragmentManager().findFragmentById(R.id.autocomplete_Fragment);
         //SPECIFY PLACE FOR USER INPUT
-        autocompleteSupportFragment.setTypeFilter(TypeFilter.ADDRESS);
+        //autocompleteSupportFragment.setTypeFilter(TypeFilter.ADDRESS);
         //LOCATION BIAS TO HELP RESULTS
         autocompleteSupportFragment.setLocationBias(RectangularBounds.newInstance(
                 new LatLng(54.922195, -5.184964),
@@ -70,7 +73,7 @@ public class ReminderCreate extends AppCompatActivity implements View.OnClickLis
         autocompleteSupportFragment.setCountries("UK");
         //SPECIFY PLACE DATA TO RETURN
         autocompleteSupportFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
-
+        //RETRIEVE NAME AND ID OF PLACE
         autocompleteSupportFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
