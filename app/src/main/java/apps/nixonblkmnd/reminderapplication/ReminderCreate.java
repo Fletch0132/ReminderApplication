@@ -11,13 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
@@ -26,58 +27,63 @@ import static android.content.ContentValues.TAG;
 
 public class ReminderCreate extends AppCompatActivity implements View.OnClickListener {
 
+    //DECLARE
+    EditText txtRemName, txtRemStartDate, txtRemStartTime, txtRemEndDate, txtRemEndTime, txtRemLocation, txtRemDescription;
+    Button btnAddReminder;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_create);
 
         //EDIT TEXT BOXES
-        EditText txtRemName = findViewById(R.id.txtRemName);
-        EditText txtRemStartDate = findViewById(R.id.txtRemStartDate);
-        EditText txtRemStartTime = findViewById(R.id.txtRemStartTime);
-        EditText txtRemEndDate = findViewById(R.id.txtRemEndDate);
-        EditText txtRemEndTime = findViewById(R.id.txtRemEndTime);
-            //location here
-        EditText txtRemDescription = findViewById(R.id.txtRemDescription);
+        txtRemName = (EditText) findViewById(R.id.txtRemName);
+        txtRemStartDate = (EditText) findViewById(R.id.txtRemStartDate);
+        txtRemStartTime = (EditText) findViewById(R.id.txtRemStartTime);
+        txtRemEndDate = (EditText) findViewById(R.id.txtRemEndDate);
+        txtRemEndTime = (EditText) findViewById(R.id.txtRemEndTime);
+        txtRemDescription = (EditText) findViewById(R.id.txtRemDescription);
 
         //BUTTON
-        Button btnAddReminder = findViewById(R.id.btnAddReminder);
+        btnAddReminder = (Button) findViewById(R.id.btnAddReminder);
 
         //DEFINE AWESOMEVALIDATION OBJECT
         AwesomeValidation awesomeValidation;
         //INITIALIZE
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
 
-        // Initialize Places.
+
+        //****LOCATION****
+        // INITIALIZE PLACES
         Places.initialize(getApplicationContext(), "AIzaSyAfNcD97aOGLWgZEP4vhaRPnyDN2eq3h8c");
-        // Create a new PlacesClient instance
+        // CREATE A NEW PLACESCLIENT
         PlacesClient placesClient = Places.createClient(this);
+        //INITIALIZE AUTOCOMPLETESUPPORTFRAGMENT
+        AutocompleteSupportFragment autocompleteSupportFragment = (AutocompleteSupportFragment)getSupportFragmentManager().findFragmentById(R.id.autocomplete_Fragment);
+        //SPECIFY PLACE FOR USER INPUT
+        autocompleteSupportFragment.setTypeFilter(TypeFilter.ADDRESS);
+        //LOCATION BIAS TO HELP RESULTS
+        autocompleteSupportFragment.setLocationBias(RectangularBounds.newInstance(
+                new LatLng(54.922195, -5.184964),
+                new LatLng(57.695811, -2.0116)));
+        autocompleteSupportFragment.setCountries("UK");
+        //SPECIFY PLACE DATA TO RETURN
+        autocompleteSupportFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
 
-
-
-        // Initialize the AutocompleteSupportFragment.
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-
-        // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
-
-        // Set up a PlaceSelectionListener to handle the response.
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+        autocompleteSupportFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
-            public void onPlaceSelected(@NotNull Place place) {
-                // TODO: Get info about the selected place.
+            public void onPlaceSelected(Place place) {
+                //GET INFO ON SELECTED PLACE
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
             }
 
-
             @Override
-            public void onError(@NotNull Status status) {
-                // TODO: Handle the error.
-                Log.i(TAG, "An error occurred: " + status);
+            public void onError(Status status) {
+                //ERROR HANDLING
+                Log.i(TAG, "An Error Occurred: " + status);
             }
         });
-
 
 
 
@@ -95,15 +101,19 @@ public class ReminderCreate extends AppCompatActivity implements View.OnClickLis
     }
 
 
+
     //VALIDATES REMINDER AND STORES
     public void submitReminder(){
 
     }
 
 
+    //ONCLICK
     @Override
     public void onClick(View v) {
-        //SET VARIABLES
+        if (v == btnAddReminder){
+            submitReminder();
+        }
 
 
     }
