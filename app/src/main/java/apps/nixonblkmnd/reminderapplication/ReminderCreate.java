@@ -40,7 +40,6 @@ public class ReminderCreate extends AppCompatActivity {
     TextView txtRemStartTime;
     TextView txtRemEndDate;
     TextView txtRemEndTime;
-    EditText txtRemLocation;
     EditText txtRemDescription;
     Button btnAddReminder;
 
