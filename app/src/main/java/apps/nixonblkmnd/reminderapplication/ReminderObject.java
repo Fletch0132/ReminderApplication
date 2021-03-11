@@ -7,7 +7,8 @@ public class ReminderObject {
     private String reminderStartTime;
     private String reminderEndDate;
     private String reminderEndTime;
-    private String reminderLocation;
+    private String reminderLocationName;
+    private String reminderLocationId;
     private String reminderDescription;
 
 
@@ -52,12 +53,20 @@ public class ReminderObject {
         this.reminderEndTime = reminderEndTime;
     }
 
-    //LOCATION GETTERS SETTERS
-    public String getReminderLocation() {
-        return reminderLocation;
+    //LOCATION NAME GETTERS SETTERS
+    public String getReminderLocationName() {
+        return reminderLocationName;
     }
-    public void setReminderLocation(String reminderLocation) {
-        this.reminderLocation = reminderLocation;
+    public void setReminderLocationName(String reminderLocationName) {
+        this.reminderLocationName = reminderLocationName;
+    }
+
+    //LOCATION ID GETTERS SETTERS
+    public String getReminderLocationId() {
+        return reminderLocationId;
+    }
+    public void setReminderLocationId(String reminderLocationId) {
+        this.reminderLocationId = reminderLocationId;
     }
 
     //DESCRIPTION GETTERS SETTERS

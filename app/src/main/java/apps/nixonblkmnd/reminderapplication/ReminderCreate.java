@@ -2,6 +2,7 @@ package apps.nixonblkmnd.reminderapplication;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -77,7 +78,6 @@ public class ReminderCreate extends AppCompatActivity {
                 handleStartDate();
             }
         });
-
         //START TIME
         txtRemStartTime.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -86,7 +86,6 @@ public class ReminderCreate extends AppCompatActivity {
                 handleStartTime();
             }
         });
-
         //END DATE
         txtRemEndDate.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -95,7 +94,6 @@ public class ReminderCreate extends AppCompatActivity {
                 handleEndDate();
             }
         });
-
         //END TIME
         txtRemEndTime.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -104,7 +102,6 @@ public class ReminderCreate extends AppCompatActivity {
                 handleEndTime();
             }
         });
-
         //LOCATION
         handleLocation();
 
@@ -113,8 +110,17 @@ public class ReminderCreate extends AppCompatActivity {
         btnAddReminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v == btnAddReminder) {
-                    Toast.makeText(getApplicationContext(),"Works", Toast.LENGTH_LONG).show();
+                if (txtRemName.getText().toString().isEmpty()) {
+                    txtRemName.requestFocus();
+                    txtRemName.setError("Reminder requires a name. Please try again.");
+                }
+                else {
+                    //STORE REMINDER NAME
+                    remObj.setReminderName(txtRemName.getText().toString());
+                    //DISPLAY SUCCESS
+                    Toast.makeText(ReminderCreate.this, remObj.getReminderName() + " reminder added!", Toast.LENGTH_SHORT).show();
+                    //NAVIGATE TO MAIN PAGE
+                    navMain();
                 }
 
                 //Toast.makeText(getApplicationContext(), remObj.getReminderStartTime() + " " + remObj.getReminderEndTime(),Toast.LENGTH_LONG).show();
@@ -122,6 +128,12 @@ public class ReminderCreate extends AppCompatActivity {
         });
 
         }
+
+    //NAVIGATE TO MAIN PAGE
+    private void navMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
 
     //HANDLES THE START DATE INPUT
@@ -247,6 +259,8 @@ public class ReminderCreate extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 //GET INFO ON SELECTED PLACE
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+                remObj.setReminderLocationName(place.getName());
+                remObj.setReminderLocationId(place.getId());
             }
 
             @Override
