@@ -10,5 +10,6 @@
     <string name="remEndTimeError">Enter a valid end time</string>
     <string name="remLocationError">Enter a valid Reminder location</string>
     <string name="remDescriptionError">Enter a valid Reminder description</string>
+    <string name="api_key">AIzaSyAfNcD97aOGLWgZEP4vhaRPnyDN2eq3h8c</string>
 </resources>
 

@@ -1,16 +1,20 @@
 package apps.nixonblkmnd.reminderapplication;
 
+import android.app.DatePickerDialog;
+import android.icu.util.Calendar;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
@@ -25,102 +29,181 @@ import java.util.Arrays;
 import static android.content.ContentValues.TAG;
 
 
-public class ReminderCreate extends AppCompatActivity implements View.OnClickListener {
+public class ReminderCreate extends AppCompatActivity {
 
     //DECLARE
-    EditText txtRemName, txtRemStartDate, txtRemStartTime, txtRemEndDate, txtRemEndTime, txtRemLocation, txtRemDescription;
+    EditText txtRemName;
+    TextView txtRemStartDate;
+    TextView txtRemStartTime;
+    TextView txtRemEndDate;
+    TextView txtRemEndTime;
+    EditText txtRemLocation;
+    EditText txtRemDescription;
     Button btnAddReminder;
 
+    //DEFINE AWESOMEVALIDATION OBJECT
+    //AwesomeValidation awesomeValidation;
 
+    //VARIABLES
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_create);
 
-        try {
-            //EDIT TEXT BOXES
-            txtRemName = (EditText) findViewById(R.id.txtRemName);
-            txtRemStartDate = (EditText) findViewById(R.id.txtRemStartDate);
-            txtRemStartTime = (EditText) findViewById(R.id.txtRemStartTime);
-            txtRemEndDate = (EditText) findViewById(R.id.txtRemEndDate);
-            txtRemEndTime = (EditText) findViewById(R.id.txtRemEndTime);
-            txtRemDescription = (EditText) findViewById(R.id.txtRemDescription);
 
-            //BUTTON
-            btnAddReminder = (Button) findViewById(R.id.btnAddReminder);
+        //EDIT TEXT BOXES
+        txtRemName = (EditText) findViewById(R.id.txtRemName);
+        txtRemStartDate = (TextView) findViewById(R.id.txtRemStartDate);
+        txtRemStartTime = (TextView) findViewById(R.id.txtRemStartTime);
+        txtRemEndDate = (TextView) findViewById(R.id.txtRemEndDate);
+        txtRemEndTime = (TextView) findViewById(R.id.txtRemEndTime);
+        txtRemDescription = (EditText) findViewById(R.id.txtRemDescription);
 
-            //DEFINE AWESOMEVALIDATION OBJECT
-            AwesomeValidation awesomeValidation;
-            //INITIALIZE
-            awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+        //VARIABLES
+        String remName, remDescription;
 
 
+        //BUTTON
+        btnAddReminder = (Button) findViewById(R.id.btnAddReminder);
 
-            //****LOCATION****
-            // INITIALIZE PLACES
-            Places.initialize(getApplicationContext(), "AIzaSyAfNcD97aOGLWgZEP4vhaRPnyDN2eq3h8c");
-            //CHECK INITIALIZE AND PUSH FOR ONE
-            if (!Places.isInitialized()) {
-                Places.initialize(getApplicationContext(), "AIzaSyAfNcD97aOGLWgZEP4vhaRPnyDN2eq3h8c");
+
+        //INITIALIZE
+        //awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+
+
+        //START DATE
+        txtRemStartDate.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                handleStartDate();
             }
-            // CREATE A NEW PLACESCLIENT
-            PlacesClient placesClient = Places.createClient(this);
-            //INITIALIZE AUTOCOMPLETESUPPORTFRAGMENT
-            AutocompleteSupportFragment autocompleteSupportFragment = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocomplete_Fragment);
-            //SPECIFY PLACE FOR USER INPUT
-            //autocompleteSupportFragment.setTypeFilter(TypeFilter.ADDRESS);
-            //LOCATION BIAS TO HELP RESULTS
-            autocompleteSupportFragment.setLocationBias(RectangularBounds.newInstance(
-                    new LatLng(54.922195, -5.184964),
-                    new LatLng(57.695811, -2.0116)));
-            autocompleteSupportFragment.setCountries("UK");
-            //SPECIFY PLACE DATA TO RETURN
-            autocompleteSupportFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
-            //RETRIEVE NAME AND ID OF PLACE
-            autocompleteSupportFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-                @Override
-                public void onPlaceSelected(Place place) {
-                    //GET INFO ON SELECTED PLACE
-                    Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+        });
+
+        //START TIME
+        handleStartTime();
+
+        //END DATE
+        handleEndDate();
+
+        //END TIME
+        handleEndTime();
+
+        //LOCATION
+        handleLocation();
+
+
+        //BUTTON ONCLICK
+        btnAddReminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v == btnAddReminder) {
+                    Toast.makeText(getApplicationContext(),"Works", Toast.LENGTH_LONG).show();
                 }
-
-                @Override
-                public void onError(Status status) {
-                    //ERROR HANDLING
-                    Log.i(TAG, "An Error Occurred: " + status);
-                }
-            });
-
-
-            //VALIDATE INPUT AND STORE TO DISPLAY REMINDER AND NOTIFY USER
-            awesomeValidation.addValidation(this, R.id.txtRemName, "^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$", R.string.remNameError);
-            awesomeValidation.addValidation(this, R.id.txtRemStartDate, "^(?=\\s*\\S).*$", R.string.remStartDateError);
-            awesomeValidation.addValidation(this, R.id.txtRemStartTime, "^(?=\\s*\\S).*$", R.string.remStartTimeError);
-            awesomeValidation.addValidation(this, R.id.txtRemEndDate, "^(?=\\s*\\S).*$", R.string.remEndDateError);
-            awesomeValidation.addValidation(this, R.id.txtRemEndTime, "^(?=\\s*\\S).*$", R.string.remEndTimeError);
-
-
-            //VALIDATE
-            if (awesomeValidation.validate()){
-                Toast.makeText(this, "Reminder Correct", Toast.LENGTH_LONG).show();
             }
+        });
+
+        }
 
 
-            //BUTTON ONCLICK
-            btnAddReminder.setOnClickListener(this);
-        }
-        catch (Exception exception){
-            Log.e(TAG, "Error Occurred");
-        }
+    //HANDLES THE START DATE INPUT
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void handleStartDate() {
+        //INITIALIZE CALENDAR
+        Calendar calendar = Calendar.getInstance();
+
+        //SET UP CURRENT YEAR, MONTH, DATE USING CALENDAR
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int date = calendar.get(Calendar.DATE);
+
+        //PICK DATE
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String startDateString = (dayOfMonth + "/" + month + "/" + year);
+                txtRemStartDate.setText(startDateString);
+            }
+        }, year, month, date);
+
+        //DISPLAY
+        datePickerDialog.show();
     }
 
+    //HANDLES THE START TIME INPUT
+    private void handleStartTime() {
 
-    //ONCLICK
-    @Override
-    public void onClick(View view) {
-        if (view == btnAddReminder) {
-            Toast.makeText(this,"Works", Toast.LENGTH_LONG).show();
-        }
     }
+
+    //HANDLES THE END DATE INPUT
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void handleEndDate(){
+        //INITIALIZE CALENDAR
+        Calendar calendar = Calendar.getInstance();
+
+        //SET UP CURRENT YEAR, MONTH, DATE USING CALENDAR
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int date = calendar.get(Calendar.DATE);
+
+        //PICK DATE
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String endDateString = (dayOfMonth + "/" + month + "/" + year);
+                txtRemEndDate.setText(endDateString);
+            }
+        }, year, month, date);
+
+        //DISPLAY
+        datePickerDialog.show();
+    }
+
+    //HANDLES THE END TIME INPUT
+    private void handleEndTime(){
+
+    }
+
+    //HANDLES LOCATION AUTOCOMPLETE AND SELECTION
+    private void handleLocation() {
+        // INITIALIZE PLACES
+        Places.initialize(getApplicationContext(), getString(R.string.api_key));
+        //CHECK INITIALIZE AND PUSH FOR ONE
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), getString(R.string.api_key));
+        }
+        // CREATE A NEW PLACESCLIENT
+        PlacesClient placesClient = Places.createClient(this);
+        //INITIALIZE AUTOCOMPLETESUPPORTFRAGMENT
+        AutocompleteSupportFragment autocompleteSupportFragment = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocomplete_Fragment);
+        //SPECIFY PLACE FOR USER INPUT
+        //autocompleteSupportFragment.setTypeFilter(TypeFilter.ADDRESS);
+        //LOCATION BIAS TO HELP RESULTS
+        autocompleteSupportFragment.setLocationBias(RectangularBounds.newInstance(
+                new LatLng(54.922195, -5.184964),
+                new LatLng(57.695811, -2.0116)));
+        autocompleteSupportFragment.setCountries("UK");
+        //SPECIFY PLACE DATA TO RETURN
+        autocompleteSupportFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+        //RETRIEVE NAME AND ID OF PLACE
+        autocompleteSupportFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                //GET INFO ON SELECTED PLACE
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+            }
+
+            @Override
+            public void onError(Status status) {
+                //ERROR HANDLING
+                Log.i(TAG, "An Error Occurred: " + status);
+            }
+        });
+    }
+
 
 }
