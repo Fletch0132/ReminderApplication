@@ -1,6 +1,7 @@
 package apps.nixonblkmnd.reminderapplication;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -44,9 +46,8 @@ public class ReminderCreate extends AppCompatActivity {
     //DEFINE AWESOMEVALIDATION OBJECT
     //AwesomeValidation awesomeValidation;
 
-    //VARIABLES
-
-
+    //INITIALIZE REMINDEROBJECT.CLASS
+    ReminderObject remObj = new ReminderObject();
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -63,16 +64,9 @@ public class ReminderCreate extends AppCompatActivity {
         txtRemEndTime = (TextView) findViewById(R.id.txtRemEndTime);
         txtRemDescription = (EditText) findViewById(R.id.txtRemDescription);
 
-        //VARIABLES
-        String remName, remDescription;
-
 
         //BUTTON
         btnAddReminder = (Button) findViewById(R.id.btnAddReminder);
-
-
-        //INITIALIZE
-        //awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
 
 
         //START DATE
@@ -85,13 +79,31 @@ public class ReminderCreate extends AppCompatActivity {
         });
 
         //START TIME
-        handleStartTime();
+        txtRemStartTime.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                handleStartTime();
+            }
+        });
 
         //END DATE
-        handleEndDate();
+        txtRemEndDate.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                handleEndDate();
+            }
+        });
 
         //END TIME
-        handleEndTime();
+        txtRemEndTime.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View v) {
+                handleEndTime();
+            }
+        });
 
         //LOCATION
         handleLocation();
@@ -104,6 +116,8 @@ public class ReminderCreate extends AppCompatActivity {
                 if (v == btnAddReminder) {
                     Toast.makeText(getApplicationContext(),"Works", Toast.LENGTH_LONG).show();
                 }
+
+                //Toast.makeText(getApplicationContext(), remObj.getReminderStartTime() + " " + remObj.getReminderEndTime(),Toast.LENGTH_LONG).show();
             }
         });
 
@@ -127,6 +141,7 @@ public class ReminderCreate extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String startDateString = (dayOfMonth + "/" + month + "/" + year);
                 txtRemStartDate.setText(startDateString);
+                remObj.setReminderStartDate(startDateString);
             }
         }, year, month, date);
 
@@ -135,8 +150,26 @@ public class ReminderCreate extends AppCompatActivity {
     }
 
     //HANDLES THE START TIME INPUT
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleStartTime() {
+        //INITIALIZE CALENDAR
+        Calendar calendar = Calendar.getInstance();
+        //SET TIME VARIABLES
+        int hour = calendar.get(Calendar.HOUR);
+        int minute = calendar.get(Calendar.MINUTE);
 
+        //PICK TIME
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                String startTimeString = (hourOfDay + ":" + minute);
+                txtRemStartTime.setText(startTimeString);
+                remObj.setReminderStartTime(startTimeString);
+            }
+        }, hour, minute, true);
+
+        //DISPLAY
+        timePickerDialog.show();
     }
 
     //HANDLES THE END DATE INPUT
@@ -156,6 +189,7 @@ public class ReminderCreate extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String endDateString = (dayOfMonth + "/" + month + "/" + year);
                 txtRemEndDate.setText(endDateString);
+                remObj.setReminderEndDate(endDateString);
             }
         }, year, month, date);
 
@@ -164,8 +198,26 @@ public class ReminderCreate extends AppCompatActivity {
     }
 
     //HANDLES THE END TIME INPUT
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void handleEndTime(){
+        //INITIALIZE CALENDAR
+        Calendar calendar = Calendar.getInstance();
+        //SET TIME VARIABLES
+        int hour = calendar.get(Calendar.HOUR);
+        int minute = calendar.get(Calendar.MINUTE);
 
+        //PICK TIME
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                String endTimeString = (hourOfDay + ":" + minute);
+                txtRemEndTime.setText(endTimeString);
+                remObj.setReminderEndTime(endTimeString);
+            }
+        }, hour, minute, true);
+
+        //DISPLAY
+        timePickerDialog.show();
     }
 
     //HANDLES LOCATION AUTOCOMPLETE AND SELECTION
