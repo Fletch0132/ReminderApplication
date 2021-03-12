@@ -2,7 +2,11 @@
     <string name="app_name">ReminderApplication</string>
     <string name="Calendar">Calendar</string>
     <string name="title_activity_reminder_map">Map</string>
+    <string name="api_key">AIzaSyAfNcD97aOGLWgZEP4vhaRPnyDN2eq3h8c</string>
 
+
+
+    <!-- CREATE REMINDER -->
     <string name="remNameError">Enter a valid Reminder name</string>
     <string name="remStartDateError">Enter a valid start date</string>
     <string name="remStartTimeError">Enter a valid start time</string>
@@ -10,6 +14,22 @@
     <string name="remEndTimeError">Enter a valid end time</string>
     <string name="remLocationError">Enter a valid Reminder location</string>
     <string name="remDescriptionError">Enter a valid Reminder description</string>
-    <string name="api_key">AIzaSyAfNcD97aOGLWgZEP4vhaRPnyDN2eq3h8c</string>
+
+
+    <!-- SELF HELP -->
+    <string name="help1Title">word here
+        check this
+        does this work</string>
+    <string name="help1Info"></string>
+    <string name="help1Con"></string>
+    <string name="help2Title"></string>
+    <string name="help2Info"></string>
+    <string name="help2Con"></string>
+    <string name="help3Title"></string>
+    <string name="help3Info"></string>
+    <string name="help3Con"></string>
+    <string name="help4Title"></string>
+    <string name="help4Info"></string>
+    <string name="help4Con"></string>
 </resources>
 
