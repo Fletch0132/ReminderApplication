@@ -2,13 +2,52 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/BGblue"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- TEXT -->
     <TextView
+        android:id="@+id/titleHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Self-help!"/>
+        android:layout_marginTop="28dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginBottom="10dp"
+        android:text="Self-Help"
+        android:textColor="@color/black"
+        android:background="@drawable/btn_e"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- SELF-HELP BASE -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="700dp"
+        android:orientation="vertical"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/main_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- SCROLLVIEW FOR INFORMATION -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+
+
+        </ScrollView>
+    </LinearLayout>
 
 </RelativeLayout>
