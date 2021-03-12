@@ -1,14 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/BGblue"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- TEXT -->
     <TextView
+        android:id="@+id/titleNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Notes!"/>
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="10dp"
+        android:text="Notes"
+        android:textColor="@color/black"
+        android:background="@drawable/btn_d"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-</RelativeLayout>
+    <!-- NOTES BASE -->
+    <LinearLayout
+        android:id="@+id/notesBase"
+        android:layout_width="match_parent"
+        android:layout_height="520dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/main_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/notesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:clipToPadding="false"
+            android:paddingStart="0dp"
+            android:paddingEnd="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_12sdp"/>
+
+
+        <ImageView
+            android:id="@+id/imageAdd"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/background_add"
+            android:src="@drawable/ic_add_outline"
+            android:layout_marginTop="460dp"
+            android:layout_marginLeft="355dp"/>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
