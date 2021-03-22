@@ -10,17 +10,17 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
     //DATABASE VARIABLES
     private Context context;
-    public static final String DATABASE_NAME = "ReminderApplication.db";
-    public static final int DATABASE_VERSION = 1;
-    public static final String TABLE_NAME = "reminders";
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_NAME = "rem_name";
-    public static final String COLUMN_START_DATE = "rem_start_date";
-    public static final String COLUMN_START_TIME = "rem_start_time";
-    public static final String COLUMN_END_DATE = "rem_end_date";
-    public static final String COLUMN_END_TIME = "rem_end_time";
-    public static final String COLUMN_LOCATION = "rem_location";
-    public static final String COLUMN_DESCRIPTION = "rem_description";
+    private static final String DATABASE_NAME = "ReminderApplication.db";
+    private static final int DATABASE_VERSION = 1;
+    private static final String TABLE_NAME = "reminders";
+    private static final String COLUMN_ID = "_id";
+    private static final String COLUMN_NAME = "rem_name";
+    private static final String COLUMN_START_DATE = "rem_start_date";
+    private static final String COLUMN_START_TIME = "rem_start_time";
+    private static final String COLUMN_END_DATE = "rem_end_date";
+    private static final String COLUMN_END_TIME = "rem_end_time";
+    private static final String COLUMN_LOCATION = "rem_location";
+    private static final String COLUMN_DESCRIPTION = "rem_description";
 
     //DATABASE HELPER - CONNECTION BETWEEN JAVA AND SQLITE
     public DatabaseHelper(@Nullable Context context) {
@@ -45,6 +45,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME + ";");
+        onCreate(db);
     }
 }
