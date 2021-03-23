@@ -2,6 +2,7 @@ package apps.nixonblkmnd.reminderapplication;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
@@ -48,7 +49,7 @@ public class ReminderCreate extends AppCompatActivity {
 
     //INITIALIZE REMINDEROBJECT.CLASS
     ReminderObject remObj = new ReminderObject();
-    //private Object ReadAPI;
+    private Object ReadAPI;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -235,15 +236,15 @@ public class ReminderCreate extends AppCompatActivity {
     //HANDLES LOCATION AUTOCOMPLETE AND SELECTION
     private void handleLocation() {
         //RETRIEVE API-KEY
-        //ReadAPI readAPI = new ReadAPI();
-        //Context apiKey = null;
-        //String key = readAPI.readFromFile(apiKey);
+        ReadAPI readAPI = new ReadAPI();
+        Context apiKey = null;
+        String key = readAPI.readFromFile(apiKey);
 
         // INITIALIZE PLACES
-        Places.initialize(getApplicationContext(), "AIzaSyAfNcD97aOGLWgZEP4vhaRPnyDN2eq3h8c");
+        Places.initialize(getApplicationContext(), key);
         //CHECK INITIALIZE AND PUSH FOR ONE
         if (!Places.isInitialized()) {
-            Places.initialize(getApplicationContext(), "AIzaSyAfNcD97aOGLWgZEP4vhaRPnyDN2eq3h8c");
+            Places.initialize(getApplicationContext(), key);
         }
         // CREATE A NEW PLACESCLIENT
         PlacesClient placesClient = Places.createClient(this);
