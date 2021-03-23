@@ -1,6 +1,6 @@
 package apps.nixonblkmnd.reminderapplication;
 
-import android.content.Context;
+/*import android.content.Context;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -18,7 +18,7 @@ public class ReadAPI {
         String key = "";
 
         try{
-            InputStream inputStream = context.openFileInput("D:/University/Year4/HonoursProject/Project/APIKEY_GOOGLE.txt");
+            InputStream inputStream = context.openFileInput("cd ../../APIKEY_GOOGLE.txt");
 
             if (inputStream != null){
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -43,4 +43,4 @@ public class ReadAPI {
         return key;
     }
 
-}
+}*/
