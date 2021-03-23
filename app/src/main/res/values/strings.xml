@@ -15,20 +15,6 @@
     <string name="remDescriptionError">Enter a valid Reminder description</string>
 
 
-    <!-- SELF HELP -->
-    <string name="help1Title">word here
-        check this
-        does this work</string>
-    <string name="help1Info"></string>
-    <string name="help1Con"></string>
-    <string name="help2Title"></string>
-    <string name="help2Info"></string>
-    <string name="help2Con"></string>
-    <string name="help3Title"></string>
-    <string name="help3Info"></string>
-    <string name="help3Con"></string>
-    <string name="help4Title"></string>
-    <string name="help4Info"></string>
-    <string name="help4Con"></string>
+
 </resources>
 
