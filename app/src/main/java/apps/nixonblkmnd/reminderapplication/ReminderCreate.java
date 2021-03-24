@@ -2,7 +2,6 @@ package apps.nixonblkmnd.reminderapplication;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
@@ -28,10 +27,6 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 
 import static android.content.ContentValues.TAG;
@@ -59,10 +54,6 @@ public class ReminderCreate extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_create);
-
-        //CALL METHOD FOR API KEY
-        Context conKey = null;
-        ReadGgAPI(conKey);
 
 
         //EDIT TEXT BOXES
@@ -244,10 +235,10 @@ public class ReminderCreate extends AppCompatActivity {
     private void handleLocation() {
 
         // INITIALIZE PLACES
-        Places.initialize(getApplicationContext(), remObj.getReminderAPIKey() );
+        Places.initialize(getApplicationContext(), BuildConfig.GMP_KEY);
         //CHECK INITIALIZE AND PUSH FOR ONE
         if (!Places.isInitialized()) {
-            Places.initialize(getApplicationContext(), remObj.getReminderAPIKey());
+            Places.initialize(getApplicationContext(), BuildConfig.GMP_KEY);
         }
         // CREATE A NEW PLACESCLIENT
         PlacesClient placesClient = Places.createClient(this);
@@ -278,25 +269,5 @@ public class ReminderCreate extends AppCompatActivity {
                 Log.i(TAG, "An Error Occurred: " + status);
             }
         });
-    }
-
-    //READ API KEY FROM FILE
-    private void ReadGgAPI(Context context){
-        String filename = "D:/University/Year4/HonoursProject/Project/APIKEY_GOOGLE.txt";
-
-        try{
-            InputStream inputStream = context.getAssets().open(filename);
-
-            if (inputStream != null){
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = bufferedReader.readLine();
-
-                remObj.setReminderAPIKey(receiveString);
-            }
-
-        } catch (IOException e) {
-            Log.e("API Key", "File containing API key not found: " + e.toString());
-        }
     }
 }
