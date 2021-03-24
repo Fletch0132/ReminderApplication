@@ -163,7 +163,7 @@ public class ReminderCreate extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String startDateString = (dayOfMonth + "/" + month + "/" + year);
+                String startDateString = (String.format("%02d",dayOfMonth) + "/" + String.format("%02d", month + 1) + "/" + year);
                 txtRemStartDate.setText(startDateString);
                 remObj.setReminderStartDate(startDateString);
             }
@@ -186,7 +186,7 @@ public class ReminderCreate extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                String startTimeString = (hourOfDay + ":" + minute);
+                String startTimeString = (String.format("%02d",hourOfDay) + ":" + String.format("%02d",minute));
                 txtRemStartTime.setText(startTimeString);
                 remObj.setReminderStartTime(startTimeString);
             }
@@ -211,7 +211,7 @@ public class ReminderCreate extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String endDateString = (dayOfMonth + "/" + month + "/" + year);
+                String endDateString = (String.format("%02d",dayOfMonth) + "/" + String.format("%02d",month) + "/" + year);
                 txtRemEndDate.setText(endDateString);
                 remObj.setReminderEndDate(endDateString);
             }
@@ -234,7 +234,7 @@ public class ReminderCreate extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                String endTimeString = (hourOfDay + ":" + minute);
+                String endTimeString = (String.format("%02d",hourOfDay) + ":" + String.format("%02d",minute));
                 txtRemEndTime.setText(endTimeString);
                 remObj.setReminderEndTime(endTimeString);
             }
