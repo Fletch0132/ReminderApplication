@@ -10,7 +10,7 @@ public class ReminderObject {
     private String reminderLocationName;
     private String reminderLocationId;
     private String reminderDescription;
-
+    private String reminderAPIKey;
 
 
     //NAME GETTERS SETTERS
@@ -77,6 +77,9 @@ public class ReminderObject {
         this.reminderDescription = reminderDescription;
     }
 
-
-
+    //API KEY FROM FILE
+    public String getReminderAPIKey() { return reminderAPIKey; }
+    public void setReminderAPIKey(String reminderAPIKey) {
+        this.reminderAPIKey = reminderAPIKey;
+    }
 }
