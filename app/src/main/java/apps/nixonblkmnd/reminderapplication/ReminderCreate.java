@@ -127,7 +127,7 @@ public class ReminderCreate extends AppCompatActivity {
                 else {
                     //STORE REMINDER NAME
                     remObj.setReminderName(txtRemName.getText().toString());
-                    remObj.setRemRem(tempRem);
+                    remObj.setRemRem(txtRemRem.getSelectedItem().toString());
 
                     //DISPLAY SUCCESS
                     Toast.makeText(ReminderCreate.this, remObj.getReminderName() + " reminder added!", Toast.LENGTH_SHORT).show();
