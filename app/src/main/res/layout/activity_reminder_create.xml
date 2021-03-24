@@ -41,6 +41,7 @@
 
 
 
+
     <!-- REMINDER NAME -->
     <LinearLayout
         android:paddingLeft="15dp"
@@ -50,7 +51,7 @@
         android:layout_weight="2"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="10dp">
+        android:layout_height="40dp">
         <TextView
             android:layout_width="200dp"
             android:layout_height="50dp"
@@ -66,32 +67,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="0dp"
             android:layout_marginRight="0dp"/>
     </LinearLayout>
 
 
-        <!-- REMINDER START DATE -->
+        <!-- REMINDER START DATE AND TIME -->
         <LinearLayout
             android:paddingLeft="15dp"
-            android:paddingRight="23dp"
+            android:paddingRight="10dp"
             android:paddingTop="5dp"
             android:paddingBottom="0dp"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="10dp">
+            android:layout_height="20dp">
             <TextView
-                android:layout_width="200dp"
+                android:layout_width="263dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginLeft="0dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:text="Start Date: "
-                android:textSize="22dp"
-                android:textColor="@color/black"/>
+                android:text="Start Date\nand Time: "
+                android:textColor="@color/black"
+                android:textSize="22dp" />
             <TextView
                 android:id="@+id/txtRemStartDate"
                 android:layout_width="match_parent"
@@ -103,29 +104,6 @@
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
                 android:hint="Click to add date"/>
-        </LinearLayout>
-
-
-        <!-- REMINDER START TIME -->
-        <LinearLayout
-            android:paddingLeft="15dp"
-            android:paddingRight="23dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="0dp"
-            android:layout_weight="2"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="10dp">
-            <TextView
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_weight="1"
-                android:text="Start Time: "
-                android:textSize="22dp"
-                android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/txtRemStartTime"
                 android:layout_width="match_parent"
@@ -139,24 +117,25 @@
                 android:hint="Click to add time"/>
         </LinearLayout>
 
-        <!-- REMINDER END DATE -->
+        <!-- REMINDER END DATE AND TIME -->
         <LinearLayout
             android:paddingLeft="15dp"
-            android:paddingRight="23dp"
-            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingTop="0dp"
             android:paddingBottom="0dp"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="10dp">
+            android:layout_height="20dp">
             <TextView
-                android:layout_width="200dp"
+                android:layout_width="263dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
                 android:layout_weight="1"
-                android:text="End Date: "
+                android:text="End Date\nand Time: "
                 android:textSize="22dp"
                 android:textColor="@color/black" />
             <TextView
@@ -170,29 +149,6 @@
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
                 android:hint="Click to add date"/>
-        </LinearLayout>
-
-
-        <!-- REMINDER END TIME -->
-        <LinearLayout
-            android:paddingLeft="15dp"
-            android:paddingRight="23dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="0dp"
-            android:layout_weight="2"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="10dp">
-            <TextView
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
-                android:layout_weight="1"
-                android:text="End Time: "
-                android:textSize="22dp"
-                android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/txtRemEndTime"
                 android:layout_width="match_parent"
@@ -204,6 +160,36 @@
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
                 android:hint="Click to add time"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:paddingLeft="15dp"
+            android:paddingRight="23dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_weight="1"
+                android:text="Reminder Time: "
+                android:textSize="22dp"
+                android:textColor="@color/black"/>
+            <Spinner
+                android:id="@+id/txtRemRem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"/>
         </LinearLayout>
 
 
@@ -235,7 +221,7 @@
                 android:layout_weight="2"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"/>
+                android:layout_marginRight="0dp" />
         </LinearLayout>
 
 
@@ -249,16 +235,17 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="120dp">
+
             <TextView
                 android:layout_width="200dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginLeft="0dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:text="Description: "
-                android:textSize="22dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="22dp" />
             <EditText
                 android:id="@+id/txtRemDescription"
                 android:layout_width="match_parent"
@@ -284,7 +271,6 @@
             android:layout_marginRight="0dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/btn_b"/>
-
 
     </LinearLayout>
 

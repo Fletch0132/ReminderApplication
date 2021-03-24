@@ -1,4 +1,4 @@
-package apps.nixonblkmnd.reminderapplication;
+package apps.nixonblkmnd.reminderapplication.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

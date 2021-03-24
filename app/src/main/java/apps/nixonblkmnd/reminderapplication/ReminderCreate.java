@@ -8,9 +8,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -40,11 +42,12 @@ public class ReminderCreate extends AppCompatActivity {
     TextView txtRemStartTime;
     TextView txtRemEndDate;
     TextView txtRemEndTime;
+    Spinner txtRemRem;
     EditText txtRemDescription;
     Button btnAddReminder;
+    String tempRem;
 
-    //DEFINE AWESOMEVALIDATION OBJECT
-    //AwesomeValidation awesomeValidation;
+
 
     //INITIALIZE REMINDEROBJECT.CLASS
     ReminderObject remObj = new ReminderObject();
@@ -62,7 +65,15 @@ public class ReminderCreate extends AppCompatActivity {
         txtRemStartTime = (TextView) findViewById(R.id.txtRemStartTime);
         txtRemEndDate = (TextView) findViewById(R.id.txtRemEndDate);
         txtRemEndTime = (TextView) findViewById(R.id.txtRemEndTime);
+        txtRemRem = (Spinner) findViewById(R.id.txtRemRem);
         txtRemDescription = (EditText) findViewById(R.id.txtRemDescription);
+
+
+
+        //LIST ARRAY FOR FILLING REMINDER TIME
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.SpinnerRemRem, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        txtRemRem.setAdapter(adapter);
 
 
         //BUTTON
@@ -116,17 +127,19 @@ public class ReminderCreate extends AppCompatActivity {
                 else {
                     //STORE REMINDER NAME
                     remObj.setReminderName(txtRemName.getText().toString());
+                    remObj.setRemRem(tempRem);
+
                     //DISPLAY SUCCESS
                     Toast.makeText(ReminderCreate.this, remObj.getReminderName() + " reminder added!", Toast.LENGTH_SHORT).show();
                     //NAVIGATE TO MAIN PAGE
                     navMain();
                 }
 
-                //Toast.makeText(getApplicationContext(), remObj.getReminderStartTime() + " " + remObj.getReminderEndTime(),Toast.LENGTH_LONG).show();
             }
         });
 
         }
+
 
     //NAVIGATE TO MAIN PAGE
     private void navMain() {
@@ -230,6 +243,10 @@ public class ReminderCreate extends AppCompatActivity {
         //DISPLAY
         timePickerDialog.show();
     }
+
+
+
+
 
     //HANDLES LOCATION AUTOCOMPLETE AND SELECTION
     private void handleLocation() {

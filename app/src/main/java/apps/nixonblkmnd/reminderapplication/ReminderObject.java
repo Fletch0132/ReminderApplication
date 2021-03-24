@@ -7,9 +7,11 @@ public class ReminderObject {
     private String reminderStartTime;
     private String reminderEndDate;
     private String reminderEndTime;
+    private String remRem;
     private String reminderLocationName;
     private String reminderLocationId;
     private String reminderDescription;
+
 
 
     //NAME GETTERS SETTERS
@@ -76,4 +78,8 @@ public class ReminderObject {
         this.reminderDescription = reminderDescription;
     }
 
+    public String getRemRem() { return remRem; }
+    public void setRemRem(String remRem) {
+        this.remRem = remRem;
+    }
 }

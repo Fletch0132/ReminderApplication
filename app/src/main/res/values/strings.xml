@@ -15,6 +15,15 @@
     <string name="remDescriptionError">Enter a valid Reminder description</string>
 
 
-
+    <string-array name="SpinnerRemRem">
+        <item>No Reminder</item>
+        <item>30 Minutes Before</item>
+        <item>1 Hour Before</item>
+        <item>2 Hours Before</item>
+        <item>1 Day Before</item>
+        <item>3 Days Before</item>
+        <item>1 Week Before</item>
+        <item>2 Weeks Before</item>
+    </string-array>
 </resources>
 
