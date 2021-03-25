@@ -104,7 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ObjectCalendar calendar = new ObjectCalendar(startID, startDate);
                 returnObjCal.add(calendar);
 
-            } while (cursor.moveToFirst());
+            } while (cursor.moveToNext());
 
         } else {
         }
