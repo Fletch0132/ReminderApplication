@@ -1,5 +1,4 @@
 package apps.nixonblkmnd.reminderapplication;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -30,6 +29,8 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
 import java.util.Arrays;
+
+import apps.nixonblkmnd.reminderapplication.database.DatabaseHelper;
 
 import static android.content.ContentValues.TAG;
 

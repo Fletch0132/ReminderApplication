@@ -1,4 +1,4 @@
-package apps.nixonblkmnd.reminderapplication;
+package apps.nixonblkmnd.reminderapplication.objects;
 
 public class ReminderObject {
     //VARIABLES
