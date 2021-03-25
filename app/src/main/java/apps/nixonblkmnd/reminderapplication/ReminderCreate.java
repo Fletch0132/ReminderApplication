@@ -45,12 +45,8 @@ public class ReminderCreate extends AppCompatActivity {
     Spinner txtRemRem;
     EditText txtRemDescription;
     Button btnAddReminder;
-    String tempRem;
+    String remName, remStartDate, remStartTime, remEndDate, remEndTime, remReminder, remLocationName, remLocationId, remDescription;
 
-
-
-    //INITIALIZE REMINDEROBJECT.CLASS
-    ReminderObject remObj = new ReminderObject();
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -126,11 +122,17 @@ public class ReminderCreate extends AppCompatActivity {
                 }
                 else {
                     //STORE REMINDER NAME
-                    remObj.setReminderName(txtRemName.getText().toString());
-                    remObj.setRemRem(txtRemRem.getSelectedItem().toString());
+                    remName = (txtRemName.getText().toString());
+                    remReminder = (txtRemRem.getSelectedItem().toString());
+                    remDescription = (txtRemDescription.getText().toString());
+
+                    //STORE IN DATABASE
+                    DatabaseHelper databaseHelper = new DatabaseHelper(ReminderCreate.this);
+                    databaseHelper.addReminder(remName, remStartDate, remStartTime, remEndDate, remEndTime, remReminder, remLocationName, remLocationId, remDescription);
+
 
                     //DISPLAY SUCCESS
-                    Toast.makeText(ReminderCreate.this, remObj.getReminderName() + " reminder added!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReminderCreate.this, remName + " reminder added!", Toast.LENGTH_SHORT).show();
                     //NAVIGATE TO MAIN PAGE
                     navMain();
                 }
@@ -165,7 +167,7 @@ public class ReminderCreate extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String startDateString = (String.format("%02d",dayOfMonth) + "/" + String.format("%02d", month + 1) + "/" + year);
                 txtRemStartDate.setText(startDateString);
-                remObj.setReminderStartDate(startDateString);
+                remStartDate = startDateString;
             }
         }, year, month, date);
 
@@ -188,7 +190,7 @@ public class ReminderCreate extends AppCompatActivity {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 String startTimeString = (String.format("%02d",hourOfDay) + ":" + String.format("%02d",minute));
                 txtRemStartTime.setText(startTimeString);
-                remObj.setReminderStartTime(startTimeString);
+                remStartTime = startTimeString;
             }
         }, hour, minute, true);
 
@@ -211,9 +213,9 @@ public class ReminderCreate extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String endDateString = (String.format("%02d",dayOfMonth) + "/" + String.format("%02d",month) + "/" + year);
+                String endDateString = (String.format("%02d",dayOfMonth) + "/" + String.format("%02d",month + 1) + "/" + year);
                 txtRemEndDate.setText(endDateString);
-                remObj.setReminderEndDate(endDateString);
+                remEndDate = endDateString;
             }
         }, year, month, date);
 
@@ -236,7 +238,7 @@ public class ReminderCreate extends AppCompatActivity {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 String endTimeString = (String.format("%02d",hourOfDay) + ":" + String.format("%02d",minute));
                 txtRemEndTime.setText(endTimeString);
-                remObj.setReminderEndTime(endTimeString);
+                remEndTime = endTimeString;
             }
         }, hour, minute, true);
 
@@ -276,8 +278,8 @@ public class ReminderCreate extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 //GET INFO ON SELECTED PLACE
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
-                remObj.setReminderLocationName(place.getName());
-                remObj.setReminderLocationId(place.getId());
+                remLocationName = place.getName();
+                remLocationId = place.getId();
             }
 
             @Override
