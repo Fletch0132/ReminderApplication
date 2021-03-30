@@ -39,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
         android:id="@+id/txtCalUpcoming"
         android:layout_width="250dp"
         android:layout_height="80dp"

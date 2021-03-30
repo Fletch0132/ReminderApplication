@@ -4,16 +4,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.List;
-
 import apps.nixonblkmnd.reminderapplication.database.DatabaseHelper;
-import apps.nixonblkmnd.reminderapplication.objects.ObjectCalendar;
 
 public class ReminderCalendar extends AppCompatActivity implements View.OnClickListener {
+
+    ListView txtCalUpcoming;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -21,10 +21,10 @@ public class ReminderCalendar extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_calendar);
 
+        txtCalUpcoming = (ListView) findViewById(R.id.txtCalUpcoming);
+
         //DATABASE
         DatabaseHelper databaseHelper = new DatabaseHelper(ReminderCalendar.this);
-        List<ObjectCalendar> objCal = databaseHelper.objCal();
-
 
 
         //BUTTON
@@ -33,6 +33,8 @@ public class ReminderCalendar extends AppCompatActivity implements View.OnClickL
         //BUTTON ONCLICK
         btnCreateRemCal.setOnClickListener(this);
     }
+
+
 
 
     //NAVIGATE ONCLICK

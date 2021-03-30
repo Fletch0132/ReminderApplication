@@ -2,17 +2,11 @@ package apps.nixonblkmnd.reminderapplication.database;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import apps.nixonblkmnd.reminderapplication.objects.ObjectCalendar;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -84,33 +78,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-
-    //SELECT ALL REMINDERS DATES TO DISPLAY IN CALENDAR
-    public List<ObjectCalendar> objCal(){
-        List<ObjectCalendar> returnObjCal = new ArrayList<>();
-
-        String query = "SELECT " + COLUMN_ID + ", " + COLUMN_START_DATE + " FROM " + TABLE_NAME + " ORDER BY DATE(" + COLUMN_START_DATE +");";
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery(query, null);
-
-
-        //LOOP THROUGH DATES AND STORE IN LIST
-        if(cursor.moveToFirst()){
-            do {
-                int startID = cursor.getInt(0);
-                String startDate = cursor.getString(1);
-
-                ObjectCalendar calendar = new ObjectCalendar(startID, startDate);
-                returnObjCal.add(calendar);
-
-            } while (cursor.moveToNext());
-
-        } else {
-        }
-        //CLOSE CURSOR AND DB
-        cursor.close();
-        db.close();
-        return returnObjCal;
-    }
 }
