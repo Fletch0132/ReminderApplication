@@ -2,13 +2,18 @@ package apps.nixonblkmnd.reminderapplication.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    DatabaseHelper databaseHelper;
 
     //DATABASE VARIABLES
     private Context context;
@@ -78,4 +83,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+
+    //GET REMINDER DATES FROM DATABASE
+    public ArrayList<String> getRemDates(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " + COLUMN_START_DATE + " FROM " + TABLE_NAME + " ORDER BY DATE(" + COLUMN_START_DATE + ");";
+        Cursor cursor = db.rawQuery(query, null);
+        StringBuffer buffer = new StringBuffer();
+        ArrayList<String> dates = new ArrayList<>();
+        //LOOP THROUGH DATES TO ADD TO ARRAYLIST - REMINDERCALENDAR.CLASS
+        if(cursor.moveToFirst()) {
+            do {
+                String date = cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_START_DATE));
+                buffer.append(date);
+                dates.add(date);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return dates;
+    }
 }
