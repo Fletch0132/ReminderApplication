@@ -9,7 +9,9 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -87,10 +89,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //GET REMINDER DATES FROM DATABASE
     public ArrayList<String> getRemDates(){
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT " + COLUMN_START_DATE + " FROM " + TABLE_NAME + " ORDER BY DATE(" + COLUMN_START_DATE + ");";
+
+        //GET CURRENT DATE
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat= new SimpleDateFormat("dd/mm/yyyy");
+        String today = dateFormat.format(currentDate);
+
+        //LIST FOR DATES
+        ArrayList<String> dates = new ArrayList<>();
+        dates.clear();
+
+        //SQL QUERY
+        String query = "SELECT " + COLUMN_START_DATE + " FROM " + TABLE_NAME + " WHERE (" + COLUMN_START_DATE + " >= " + today + ");";
+
+        //TOOLS TO WORK THROUGH DATA
         Cursor cursor = db.rawQuery(query, null);
         StringBuffer buffer = new StringBuffer();
-        ArrayList<String> dates = new ArrayList<>();
         //LOOP THROUGH DATES TO ADD TO ARRAYLIST - REMINDERCALENDAR.CLASS
         if(cursor.moveToFirst()) {
             do {

@@ -30,6 +30,7 @@ public class ReminderCalendar extends AppCompatActivity implements View.OnClickL
         databaseHelper = new DatabaseHelper(this);
         calUpcoming = (ListView) findViewById(R.id.txtCalUpcoming);
 
+        //CALLS METHOD TO DISPLAY UPCOMING REMINDERS
         ViewReminders();
 
         //BUTTON
@@ -44,6 +45,8 @@ public class ReminderCalendar extends AppCompatActivity implements View.OnClickL
     public void ViewReminders(){
         //LIST TO STORE DATES THAT CONTAIN REMINDERS - FROM DATABASEHELPER.JAVA
         ArrayList<String> remDates = databaseHelper.getRemDates();
+        //LIST THAT TAKES FIRST THREE REMINDERS IN REMDATES
+        //ArrayList<String> rD = new ArrayList<>(remDates.subList(0,3));
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, remDates);
 
