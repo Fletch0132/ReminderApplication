@@ -1,6 +1,5 @@
 package apps.nixonblkmnd.reminderapplication;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,8 +11,10 @@ import android.widget.ListView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import apps.nixonblkmnd.reminderapplication.database.DatabaseHelper;
 
@@ -56,22 +57,45 @@ public class ReminderCalendar extends AppCompatActivity implements View.OnClickL
 
 
     //CHANGE DATE FORMAT - YYYY-MM-DD
-    public static String DateFormatYear(Context context, String dateIn){
-        String dateOut = " ";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    public static String DateFormatYear(String dateIn) {
+        //OUTPUT DATE
+        Date out;
+        //OUTPUT STRING TO BE RETURNED
+        String dateOut = "";
+        //DATE FORMATS - ORIGINAL FORMAT AND CHANGED FORMAT
+        SimpleDateFormat dInput = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dOutput = new SimpleDateFormat("yyyy/MM/dd");
 
+        //CHANGE ORIGINAL DATE'S FORMAT TO NEW FORMAT
+        try{
+            out = dInput.parse(dateIn);
+            dateOut = dOutput.format(out);
+        } catch (ParseException e){
+            e.printStackTrace();
+        }
         return dateOut;
-
     }
 
 
+
     //CHANGE DATE FORMAT - DD-MM-YYYY
-    public static String DateFormatDay(Context context, String dateIn){
-        String dateOut = " ";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    public static String DateFormatDay(String dateIn){
+        //OUTPUT DATE
+        Date out;
+        //OUTPUT STRING TO BE RETURNED
+        String dateOut = "";
+        //DATE FORMATS - ORIGINAL FORMAT AND CHANGED FORMAT
+        SimpleDateFormat dInput = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat dOutput = new SimpleDateFormat("dd/MM/yyyy");
 
+        //CHANGE ORIGINAL DATE'S FORMAT TO NEW FORMAT
+        try{
+            out = dInput.parse(dateIn);
+            dateOut = dOutput.format(out);
+        } catch (ParseException e){
+            e.printStackTrace();
+        }
         return dateOut;
-
     }
 
 
