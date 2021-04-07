@@ -9,9 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -45,10 +43,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "CREATE TABLE " + TABLE_NAME +
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NAME + " TEXT, " +
-                COLUMN_START_DATE + " TEXT, " +
-                COLUMN_START_TIME + " TEXT, " +
-                COLUMN_END_DATE + " TEXT, " +
-                COLUMN_END_TIME + " TEXT, " +
+                COLUMN_START_DATE + " DATE, " +
+                COLUMN_START_TIME + " TIME, " +
+                COLUMN_END_DATE + " DATE, " +
+                COLUMN_END_TIME + " TIME, " +
                 COLUMN_REM + " TEXT, " +
                 COLUMN_LOCATION_NAME + " TEXT, " +
                 COLUMN_LOCATION_ID + " TEXT, " +
@@ -90,17 +88,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<String> getRemDates(){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        //GET CURRENT DATE
-        Date currentDate = new Date();
-        SimpleDateFormat dateFormat= new SimpleDateFormat("dd/mm/yyyy");
-        String today = dateFormat.format(currentDate);
 
         //LIST FOR DATES
         ArrayList<String> dates = new ArrayList<>();
         dates.clear();
 
         //SQL QUERY
-        String query = "SELECT " + COLUMN_START_DATE + " FROM " + TABLE_NAME + " WHERE (" + COLUMN_START_DATE + " >= " + today + ");";
+        //STRFTIME - FORMATS OUTPUT OF DATES FROM DATABASE
+        //DATE('NOW') - GETS THE CURRENT DATE
+        String query = "SELECT STRFTIME('%d-%m-%Y'," + COLUMN_START_DATE +") FROM " + TABLE_NAME + " WHERE " + COLUMN_START_DATE + " >= DATE('now') ORDER BY " + COLUMN_START_DATE + ", " + COLUMN_START_TIME + ";";
 
         //TOOLS TO WORK THROUGH DATA
         Cursor cursor = db.rawQuery(query, null);

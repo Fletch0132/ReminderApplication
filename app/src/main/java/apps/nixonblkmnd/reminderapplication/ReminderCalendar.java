@@ -1,5 +1,6 @@
 package apps.nixonblkmnd.reminderapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import apps.nixonblkmnd.reminderapplication.database.DatabaseHelper;
@@ -46,11 +48,30 @@ public class ReminderCalendar extends AppCompatActivity implements View.OnClickL
         //LIST TO STORE DATES THAT CONTAIN REMINDERS - FROM DATABASEHELPER.JAVA
         ArrayList<String> remDates = databaseHelper.getRemDates();
         //LIST THAT TAKES FIRST THREE REMINDERS IN REMDATES
-        //ArrayList<String> rD = new ArrayList<>(remDates.subList(0,3));
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, remDates);
-
+        ArrayList<String> rD = new ArrayList<>(remDates.subList(0,3));
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, rD);
+        //FILL LIST-VIEW
         calUpcoming.setAdapter(adapter);
+    }
+
+
+    //CHANGE DATE FORMAT - YYYY-MM-DD
+    public static String DateFormatYear(Context context, String dateIn){
+        String dateOut = " ";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        return dateOut;
+
+    }
+
+
+    //CHANGE DATE FORMAT - DD-MM-YYYY
+    public static String DateFormatDay(Context context, String dateIn){
+        String dateOut = " ";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        return dateOut;
+
     }
 
 
