@@ -172,6 +172,8 @@ public class ReminderCreate extends AppCompatActivity {
             }
         }, year, month, date);
 
+
+
         //DISPLAY
         datePickerDialog.show();
     }

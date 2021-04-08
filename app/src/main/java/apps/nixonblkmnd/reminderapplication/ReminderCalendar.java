@@ -3,6 +3,7 @@ package apps.nixonblkmnd.reminderapplication;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,12 +12,11 @@ import android.widget.ListView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import apps.nixonblkmnd.reminderapplication.database.DatabaseHelper;
+
+import static android.content.ContentValues.TAG;
 
 public class ReminderCalendar extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,57 +46,21 @@ public class ReminderCalendar extends AppCompatActivity implements View.OnClickL
 
     //VIEW REMINDERS ON CALENDAR
     public void ViewReminders(){
-        //LIST TO STORE DATES THAT CONTAIN REMINDERS - FROM DATABASEHELPER.JAVA
-        ArrayList<String> remDates = databaseHelper.getRemDates();
-        //LIST THAT TAKES FIRST THREE REMINDERS IN REMDATES
-        ArrayList<String> rD = new ArrayList<>(remDates.subList(0,3));
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, rD);
-        //FILL LIST-VIEW
-        calUpcoming.setAdapter(adapter);
-    }
-
-
-    //CHANGE DATE FORMAT - YYYY-MM-DD
-    public static String DateFormatYear(String dateIn) {
-        //OUTPUT DATE
-        Date out;
-        //OUTPUT STRING TO BE RETURNED
-        String dateOut = "";
-        //DATE FORMATS - ORIGINAL FORMAT AND CHANGED FORMAT
-        SimpleDateFormat dInput = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat dOutput = new SimpleDateFormat("yyyy/MM/dd");
-
-        //CHANGE ORIGINAL DATE'S FORMAT TO NEW FORMAT
-        try{
-            out = dInput.parse(dateIn);
-            dateOut = dOutput.format(out);
-        } catch (ParseException e){
-            e.printStackTrace();
+        try {
+            //LIST TO STORE DATES THAT CONTAIN REMINDERS - FROM DATABASEHELPER.JAVA
+            ArrayList<String> remDates = databaseHelper.getRemDates();
+            //LIST THAT TAKES FIRST THREE REMINDERS IN REMDATES
+            ArrayList<String> rD = new ArrayList<>(remDates.subList(0, 3));
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, rD);
+            //FILL LIST-VIEW
+            calUpcoming.setAdapter(adapter);
+        } catch (Exception e){
+            Log.e(TAG, "ViewReminders: Error Here");
         }
-        return dateOut;
     }
 
 
 
-    //CHANGE DATE FORMAT - DD-MM-YYYY
-    public static String DateFormatDay(String dateIn){
-        //OUTPUT DATE
-        Date out;
-        //OUTPUT STRING TO BE RETURNED
-        String dateOut = "";
-        //DATE FORMATS - ORIGINAL FORMAT AND CHANGED FORMAT
-        SimpleDateFormat dInput = new SimpleDateFormat("yyyy/MM/dd");
-        SimpleDateFormat dOutput = new SimpleDateFormat("dd/MM/yyyy");
-
-        //CHANGE ORIGINAL DATE'S FORMAT TO NEW FORMAT
-        try{
-            out = dInput.parse(dateIn);
-            dateOut = dOutput.format(out);
-        } catch (ParseException e){
-            e.printStackTrace();
-        }
-        return dateOut;
-    }
 
 
     //NAVIGATE ONCLICK
