@@ -30,6 +30,7 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 
 import java.util.Arrays;
 
+import apps.nixonblkmnd.reminderapplication.Formats.FormatDate;
 import apps.nixonblkmnd.reminderapplication.database.DatabaseHelper;
 
 import static android.content.ContentValues.TAG;
@@ -168,11 +169,10 @@ public class ReminderCreate extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String startDateString = (String.format("%02d",dayOfMonth) + "/" + String.format("%02d", month + 1) + "/" + year);
                 txtRemStartDate.setText(startDateString);
-                remStartDate = startDateString;
+                //CHANGES FORMAT OF THE YEAR FOR THE DATABASE END
+                remStartDate = FormatDate.DateFormatYear(startDateString);
             }
         }, year, month, date);
-
-
 
         //DISPLAY
         datePickerDialog.show();
@@ -218,7 +218,8 @@ public class ReminderCreate extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String endDateString = (String.format("%02d",dayOfMonth) + "/" + String.format("%02d",month + 1) + "/" + year);
                 txtRemEndDate.setText(endDateString);
-                remEndDate = endDateString;
+                //CHANGES FORMAT OF YEAR FOR THE DATABASE END
+                remEndDate = FormatDate.DateFormatYear(endDateString);
             }
         }, year, month, date);
 
