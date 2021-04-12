@@ -27,9 +27,9 @@
         app:layout_constraintTop_toTopOf="parent"/>
     <!-- DISPLAY UPCOMING REMINDERS -->
     <ListView
-        android:id="@+id/txtCalUpcoming"
+        android:id="@+id/txtMainUpcoming"
         android:layout_width="250dp"
-        android:layout_height="130dp"
+        android:layout_height="200dp"
         android:layout_marginTop="120dp"
         android:layout_marginLeft="80dp"
         android:layout_marginBottom="0dp"
