@@ -84,34 +84,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    //GET REMINDER DATES FROM DATABASE
-    public ArrayList<String> getRemDates(){
+    //GET REMINDER NAME USING DATES FROM DATABASE
+    public ArrayList<String> getRems(){
         SQLiteDatabase db = this.getReadableDatabase();
 
-
-        //LIST FOR DATES
-        ArrayList<String> dates = new ArrayList<>();
-        dates.clear();
+        //LIST FOR REMINDERS
+        ArrayList<String> rems = new ArrayList<>();
+        rems.clear();
 
         //SQL QUERY
-        //STRFTIME - FORMATS OUTPUT OF DATES FROM DATABASE
         //DATE('NOW') - GETS THE CURRENT DATE
-        String query = "SELECT " + COLUMN_START_DATE + " FROM " + TABLE_NAME + " WHERE " + COLUMN_START_DATE + " >= DATE('now') ORDER BY " + COLUMN_START_DATE + ", " + COLUMN_START_TIME + ";";
+        String query = "SELECT " + COLUMN_NAME + " FROM " + TABLE_NAME + " WHERE " + COLUMN_START_DATE + " >= DATE('now') ORDER BY " + COLUMN_START_DATE + ", " + COLUMN_START_TIME + ";";
 
         //TOOLS TO WORK THROUGH DATA
         Cursor cursor = db.rawQuery(query, null);
         StringBuffer buffer = new StringBuffer();
-        //LOOP THROUGH DATES TO ADD TO ARRAYLIST - REMINDERCALENDAR.CLASS
+        //LOOP THROUGH DATES TO ADD REMS TO ARRAYLIST - REMINDERCALENDAR.CLASS
         if(cursor.moveToFirst()) {
             do {
-                String date = cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_START_DATE));
-                buffer.append(date);
-                dates.add(date);
+                String rem = cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_NAME));
+                buffer.append(rem);
+                rems.add(rem);
             } while (cursor.moveToNext());
         }
 
         cursor.close();
         db.close();
-        return dates;
+        return rems;
     }
 }

@@ -48,12 +48,19 @@ public class ReminderCalendar extends AppCompatActivity implements View.OnClickL
     public void ViewReminders(){
         try {
             //LIST TO STORE DATES THAT CONTAIN REMINDERS - FROM DATABASEHELPER.JAVA
-            ArrayList<String> remDates = databaseHelper.getRemDates();
-            //LIST THAT TAKES FIRST THREE REMINDERS IN REMDATES
-            ArrayList<String> rD = new ArrayList<>(remDates.subList(0, 3));
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, rD);
-            //FILL LIST-VIEW
-            calUpcoming.setAdapter(adapter);
+            ArrayList<String> reminders = databaseHelper.getRems();
+            if(reminders.size() <3)
+            {
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, reminders);
+                //FILL LIST VIEW
+                calUpcoming.setAdapter(adapter);
+            }
+            else {
+                ArrayList<String> rems = new ArrayList<>(reminders.subList(0, 3));
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, rems);
+                //FILL LIST-VIEW
+                calUpcoming.setAdapter(adapter);
+            }
         } catch (Exception e){
             Log.e(TAG, "ViewReminders: Error Here");
         }
