@@ -96,7 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //SQL QUERY
         //STRFTIME - FORMATS OUTPUT OF DATES FROM DATABASE
         //DATE('NOW') - GETS THE CURRENT DATE
-        String query = "SELECT STRFTIME('%d/%m/%Y'," + COLUMN_START_DATE +") FROM " + TABLE_NAME + " WHERE " + COLUMN_START_DATE + " >= DATE('now') ORDER BY " + COLUMN_START_DATE + ", " + COLUMN_START_TIME + ";";
+        String query = "SELECT " + COLUMN_START_DATE + " FROM " + TABLE_NAME + " WHERE " + COLUMN_START_DATE + " >= DATE('now') ORDER BY " + COLUMN_START_DATE + ", " + COLUMN_START_TIME + ";";
 
         //TOOLS TO WORK THROUGH DATA
         Cursor cursor = db.rawQuery(query, null);
