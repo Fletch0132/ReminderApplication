@@ -1,4 +1,4 @@
-package apps.nixonblkmnd.reminderapplication;
+package apps.nixonblkmnd.reminderapplication.Calendar;
 
 import android.content.Intent;
 import android.os.Build;
@@ -8,12 +8,20 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
+import apps.nixonblkmnd.reminderapplication.R;
+import apps.nixonblkmnd.reminderapplication.ReminderCreate;
 import apps.nixonblkmnd.reminderapplication.database.DatabaseHelper;
 
 import static android.content.ContentValues.TAG;
@@ -22,6 +30,9 @@ public class ReminderCalendar extends AppCompatActivity implements View.OnClickL
 
     ListView calUpcoming;
     DatabaseHelper databaseHelper;
+    CompactCalendarView calendarView;
+    TextView calMonth;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM-yyyy", Locale.getDefault());
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -31,10 +42,36 @@ public class ReminderCalendar extends AppCompatActivity implements View.OnClickL
 
         //DATABASE
         databaseHelper = new DatabaseHelper(this);
-        calUpcoming = (ListView) findViewById(R.id.txtCalUpcoming);
+        calUpcoming = findViewById(R.id.txtCalUpcoming);
+
+        //CALENDAR
+        calendarView = findViewById(R.id.calendarDisplay);
+        calMonth = findViewById(R.id.txtMonthText);
+        calendarView.setUseThreeLetterAbbreviation(true);
+        //START MONTH
+        Date date = new Date();
+        String dt = simpleDateFormat.format(date);
+        calMonth.setText(dt);
 
         //CALLS METHOD TO DISPLAY UPCOMING REMINDERS
         ViewReminders();
+
+        //CALENDAR INTERACTIONS
+        calendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            //SELECT DATE DISPLAY ANY REMINDERS FOR THE DATE IN NEW ACTIVITY
+            @Override
+            public void onDayClick(Date dateClicked) {
+
+            }
+            //SET MONTH AND CHANGE MONTH ON SCROLL
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                calMonth.setText(simpleDateFormat.format(firstDayOfNewMonth));
+            }
+        });
+
+
+
 
         //BUTTON
         Button btnCreateRemCal = findViewById(R.id.btnCreateRemCal);
