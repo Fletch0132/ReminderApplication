@@ -64,10 +64,27 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <!-- CALENDAR -->
-        <CalendarView
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/txtCalMonth"
+            android:textColor="@color/black"
+            android:textSize="22dp"
+            android:textAlignment="center"/>
+        <com.github.sundeepk.compactcalendarview.CompactCalendarView
             android:id="@+id/calendarDisplay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            app:compactCalendarTextSize="16dp"
+            app:compactCalendarBackgroundColor="#d2e3e5"
+            app:compactCalendarTextColor="@color/black"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="#1EDAB8"
+            app:compactCalendarCurrentDayIndicatorStyle="no_fill_large_indicator"
+            app:compactCalendarCurrentDayBackgroundColor="#1EDAB8"
+            app:compactCalendarMultiEventIndicatorColor="#19C9EC"
             android:layout_marginBottom="20dp"
             />
 

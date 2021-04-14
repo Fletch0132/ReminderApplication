@@ -1,4 +1,4 @@
-package apps.nixonblkmnd.reminderapplication.Calendar;
+package apps.nixonblkmnd.reminderapplication;
 
 import android.content.Intent;
 import android.os.Build;
@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import apps.nixonblkmnd.reminderapplication.R;
-import apps.nixonblkmnd.reminderapplication.ReminderCreate;
 import apps.nixonblkmnd.reminderapplication.database.DatabaseHelper;
 
 import static android.content.ContentValues.TAG;
@@ -46,7 +44,7 @@ public class ReminderCalendar extends AppCompatActivity implements View.OnClickL
 
         //CALENDAR
         calendarView = findViewById(R.id.calendarDisplay);
-        calMonth = findViewById(R.id.txtMonthText);
+        calMonth = findViewById(R.id.txtCalMonth);
         calendarView.setUseThreeLetterAbbreviation(true);
         //START MONTH
         Date date = new Date();
@@ -102,8 +100,6 @@ public class ReminderCalendar extends AppCompatActivity implements View.OnClickL
             Log.e(TAG, "ViewReminders: Error Here");
         }
     }
-
-
 
 
 

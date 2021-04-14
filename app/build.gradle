@@ -63,5 +63,5 @@ dependencies {
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
 
     //CALENDAR HIGHLIGHT
-    implementation 'sun.bob:mcalendarview:1.0.0'
+    implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
 }

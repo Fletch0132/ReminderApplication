@@ -1,4 +1,5 @@
 package apps.nixonblkmnd.reminderapplication;
+
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -56,6 +57,8 @@ public class ReminderCreate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_create);
 
+        //API FOR MAPS
+        Places.initialize(this, BuildConfig.GMP_KEY);
 
         //EDIT TEXT BOXES
         txtRemName = (EditText) findViewById(R.id.txtRemName);
@@ -252,23 +255,23 @@ public class ReminderCreate extends AppCompatActivity {
 
 
 
-
-
     //HANDLES LOCATION AUTOCOMPLETE AND SELECTION
     private void handleLocation() {
-
         // INITIALIZE PLACES
         Places.initialize(getApplicationContext(), BuildConfig.GMP_KEY);
         //CHECK INITIALIZE AND PUSH FOR ONE
         if (!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), BuildConfig.GMP_KEY);
         }
+
+
         // CREATE A NEW PLACESCLIENT
         PlacesClient placesClient = Places.createClient(this);
         //INITIALIZE AUTOCOMPLETESUPPORTFRAGMENT
         AutocompleteSupportFragment autocompleteSupportFragment = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocomplete_Fragment);
         //SPECIFY PLACE FOR USER INPUT
-        //autocompleteSupportFragment.setTypeFilter(TypeFilter.ADDRESS);
+        // autocompleteSupportFragment.setTypeFilter(TypeFilter.ADDRESS);
+
         //LOCATION BIAS TO HELP RESULTS
         autocompleteSupportFragment.setLocationBias(RectangularBounds.newInstance(
                 new LatLng(54.922195, -5.184964),
@@ -276,6 +279,7 @@ public class ReminderCreate extends AppCompatActivity {
         autocompleteSupportFragment.setCountries("UK");
         //SPECIFY PLACE DATA TO RETURN
         autocompleteSupportFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+
         //RETRIEVE NAME AND ID OF PLACE
         autocompleteSupportFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -293,4 +297,6 @@ public class ReminderCreate extends AppCompatActivity {
             }
         });
     }
+
+
 }
