@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import apps.nixonblkmnd.reminderapplication.CalendarDay.ReminderView;
 import apps.nixonblkmnd.reminderapplication.database.DatabaseHelper;
 
 import static android.content.ContentValues.TAG;
@@ -59,7 +60,10 @@ public class ReminderCalendar extends AppCompatActivity implements View.OnClickL
             //SELECT DATE DISPLAY ANY REMINDERS FOR THE DATE IN NEW ACTIVITY
             @Override
             public void onDayClick(Date dateClicked) {
-
+                //CHANGE FORMAT AND PASS TO METHOD
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String date = dateFormat.format(dateClicked);
+                ChangeView(date);
             }
             //SET MONTH AND CHANGE MONTH ON SCROLL
             @Override
@@ -67,9 +71,6 @@ public class ReminderCalendar extends AppCompatActivity implements View.OnClickL
                 calMonth.setText(simpleDateFormat.format(firstDayOfNewMonth));
             }
         });
-
-
-
 
         //BUTTON
         Button btnCreateRemCal = findViewById(R.id.btnCreateRemCal);
@@ -101,6 +102,12 @@ public class ReminderCalendar extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    //NAVIGATE TO NEXT PAGE TO DISPLAY REMINDERS INCLUDING DATE SELECTED
+    public void ChangeView(String date){
+        Intent intent = new Intent(this, ReminderView.class);
+        intent.putExtra("dateCL", date);
+        startActivity(intent);
+    }
 
 
     //NAVIGATE ONCLICK

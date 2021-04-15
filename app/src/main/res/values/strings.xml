@@ -4,7 +4,6 @@
     <string name="title_activity_reminder_map">Map</string>
 
 
-
     <!-- CREATE REMINDER -->
     <string name="remNameError">Enter a valid Reminder name</string>
     <string name="remStartDateError">Enter a valid start date</string>
