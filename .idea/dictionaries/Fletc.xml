@@ -4,8 +4,10 @@
       <w>apikey</w>
       <w>autocompletesupportfragment</w>
       <w>awesomevalidation</w>
+      <w>listview</w>
       <w>placesclient</w>
       <w>reminderobject</w>
+      <w>reminderview</w>
     </words>
   </dictionary>
 </component>
