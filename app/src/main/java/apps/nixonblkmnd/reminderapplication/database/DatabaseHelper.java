@@ -122,7 +122,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         eNames.clear();
 
         //QUERY TO GET EVENT NAMES FOR SELECTED DATE
-        String query = "SELECT " + COLUMN_NAME + " FROM " + TABLE_NAME + " WHERE " + COLUMN_START_DATE + " = " + dateSelected + " ORDER BY " + COLUMN_START_DATE + ", " + COLUMN_START_TIME + ";";
+        String query = "SELECT " + COLUMN_NAME + " FROM " + TABLE_NAME + " WHERE " + COLUMN_START_DATE + " = '" + dateSelected + "' ORDER BY " + COLUMN_START_DATE + ", " + COLUMN_START_TIME + ";";
 
         //TOOLS TO WORK THROUGH DATA
         Cursor cursor = db.rawQuery(query, null);
@@ -146,12 +146,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         //QUERY TO GET EVENT START TIMES FROM DATABASE
-        String query = "SELECT " + COLUMN_START_TIME + " FROM " + TABLE_NAME + " WHERE " + COLUMN_START_DATE + " = " + dateSelected + " AND " + COLUMN_NAME + " = " + name + ";";
+        String query = "SELECT " + COLUMN_START_TIME + " FROM " + TABLE_NAME + " WHERE ()" + COLUMN_START_DATE + " = '" + dateSelected + "') AND (" + COLUMN_NAME + " = '" + name + "');";
 
         //TOOLS TO WORK THROUGH DATA
         Cursor cursor = db.rawQuery(query, null);
         StringBuffer buffer = new StringBuffer();
         String time = cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_START_TIME));
+        buffer.append(time);
 
         //CLOSE CONNECTION
         cursor.close();
