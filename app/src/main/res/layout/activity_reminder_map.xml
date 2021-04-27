@@ -38,7 +38,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
+    <ListView
+        android:id="@+id/txtMapUpcoming"
+        android:layout_width="250dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginBottom="0dp"
+        android:textAlignment="center"/>
 
     <!-- MAP BASE -->
     <LinearLayout

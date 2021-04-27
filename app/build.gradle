@@ -64,4 +64,10 @@ dependencies {
 
     //CALENDAR HIGHLIGHT
     implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
+
+    //PLAYSTORE FOR MAP
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
+    //PERMISSIONS HELP
+    implementation 'com.karumi:dexter:6.2.2'
 }
