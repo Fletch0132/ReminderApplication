@@ -1,6 +1,7 @@
 package apps.nixonblkmnd.reminderapplication.CalendarDay;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import apps.nixonblkmnd.reminderapplication.Formats.FormatDate;
 import apps.nixonblkmnd.reminderapplication.R;
 import apps.nixonblkmnd.reminderapplication.database.DatabaseHelper;
+
+import static android.content.ContentValues.TAG;
 
 public class ReminderView extends AppCompatActivity {
 
@@ -27,41 +30,25 @@ public class ReminderView extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
         remViewUpcoming = findViewById(R.id.txtRemUpcoming);
 
-        ArrayList<String> events = Events();
-
-        PopulateEvents(events);
+        DisplayEvents();
     }
 
-    public ArrayList<String> Events(){
+    public void DisplayEvents(){
         //RETRIEVE DATE FROM CALENDAR DATE SELECTED
         String dateSelected = getIntent().getStringExtra("dateCL");
 
         //CHANGE DATE FORMAT FOR DATABASE
         dateSelected = FormatDate.DateFormatYear(dateSelected);
 
-        //GET EVENTS/REMINDERS FROM DATABASE FOR THE DATE SELECTED
-        ArrayList<String> eNames = databaseHelper.getEventNames(dateSelected);
+        try {
+            //STORE OBJECT WITHIN AN ARRAY
+            ArrayList<String> event = databaseHelper.getEventNames(dateSelected);
 
-        //ARRAYLIST FOR EVENT DATA
-        ArrayList<String> eventData = new ArrayList<>();
-
-        //FILTER THROUGH EVENT NAMES TO GET DATA ON EVENTS
-        for (int i=0; i<eNames.size();i++){
-            String name = eNames.get(i);
-
-            //FIND TIME FOR EVENT IN DATABASE
-            String eTime = databaseHelper.getEventTime(name, dateSelected);
-
-            //ADD EVENT NAME AND TIME TO ARRAYLIST
-            eventData.add(name + "\n Event Start Time: " + eTime);
+            //DISPLAY EVENT DATA
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, event);
+            remViewUpcoming.setAdapter(adapter);
+        }catch (Exception e){
+            Log.e(TAG, "Selected Day error getting events");
         }
-        return eventData;
-    }
-
-    //METHOD FILLS LIST VIEW
-    public void PopulateEvents(ArrayList<String> events){
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, events);
-        //FILL LIST VIEW
-        remViewUpcoming.setAdapter(adapter);
     }
 }

@@ -13,7 +13,6 @@ public class ReminderObject {
     private String reminderDescription;
 
 
-
     //NAME GETTERS SETTERS
     public String getReminderName() {
         return reminderName;
@@ -82,4 +81,6 @@ public class ReminderObject {
     public void setRemRem(String remRem) {
         this.remRem = remRem;
     }
+
+
 }

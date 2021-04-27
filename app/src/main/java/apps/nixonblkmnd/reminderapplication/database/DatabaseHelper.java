@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import apps.nixonblkmnd.reminderapplication.Formats.FormatDate;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     DatabaseHelper databaseHelper;
@@ -116,34 +118,64 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //GET EVENT NAMES FROM DATABASE FOR SELECTED DATE - REMINDERVIEW.JAVA
     public ArrayList<String> getEventNames(String dateSelected){
         SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> events = new ArrayList<>();
 
-        //LIST FOR REMINDERS
-        ArrayList<String> eNames = new ArrayList<>();
-        eNames.clear();
-
-        //QUERY TO GET EVENT NAMES FOR SELECTED DATE
-        String query = "SELECT " + COLUMN_NAME + " FROM " + TABLE_NAME + " WHERE " + COLUMN_START_DATE + " = '" + dateSelected + "' ORDER BY " + COLUMN_START_DATE + ", " + COLUMN_START_TIME + ";";
+        //QUERY TO GET EVENT DETAILS FOR SELECTED DATE
+        String query = "SELECT " + COLUMN_NAME + ", " + COLUMN_START_TIME + ", " + COLUMN_END_DATE + ", " + COLUMN_END_TIME + ", " + COLUMN_REM + ", " + COLUMN_LOCATION_NAME + ", " + COLUMN_DESCRIPTION + " FROM " + TABLE_NAME + " WHERE " + COLUMN_START_DATE + " = '" + dateSelected + "' ORDER BY " + COLUMN_START_DATE + ", " + COLUMN_START_TIME + ";";
 
         //TOOLS TO WORK THROUGH DATA
         Cursor cursor = db.rawQuery(query, null);
         StringBuffer buffer = new StringBuffer();
-        //LOOP THROUGH REMINDER NAMES TO ADD EVENT NAMES TO ARRAYLIST
+        //LOOP THROUGH EVENTS AND STORE IN OBJECT
         if(cursor.moveToFirst()) {
-            do {
-                String name = cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_NAME));
-                buffer.append(name);
-                eNames.add(name);
-            } while (cursor.moveToNext());
+            while (cursor.moveToNext()){
+                //APPEND DETAILS
+                StringBuffer name = buffer.append(cursor.getString(1));
+                StringBuffer sTime = buffer.append(cursor.getString(3));
+                StringBuffer eDate = buffer.append(cursor.getString(4));
+                StringBuffer eTime = buffer.append(cursor.getString(5));
+                StringBuffer reminder = buffer.append(cursor.getString(6));
+                StringBuffer locationN = buffer.append(cursor.getString(7));
+                StringBuffer description = buffer.append(cursor.getString(9));
+
+                //CHANGE END DATE FORMAT
+                String dateEnd = FormatDate.DateFormatDay(eDate.toString());
+
+                //lOCATION NULL
+                String location;
+                if (locationN.toString() == "NULL"){
+                    location = "No location selected";
+                }
+                else {
+                    location = locationN.toString();
+                }
+
+                //DESCRIPTION EMPTY
+                String des;
+                if (description.toString().isEmpty()){
+                    des = "No description";
+                } else{
+                    des = description.toString();
+                }
+
+                //STORE RESULTS
+                events.add(name.toString() + "\n\tEvent Start: " + sTime.toString() + "\n\tEvent End: " + dateEnd + " - " + eTime.toString() + "\n\tReminder: " + reminder.toString() + "\n\tLocation: " + location + "\n\tDescription: " + des);
+            }
         }
 
         cursor.close();
         db.close();
-        return eNames;
+
+        return events;
     }
 
     //FIND EVENT TIMES FOR SELECTED DATE AND EVENT NAME
-    public String getEventTime(String name, String dateSelected){
+    public ArrayList<String> getEventTime(String name, String dateSelected){
         SQLiteDatabase db = this.getReadableDatabase();
+
+        //LIST FOR DATA
+        ArrayList<String> eTime = new ArrayList<>();
+        eTime.clear();
 
         //QUERY TO GET EVENT START TIMES FROM DATABASE
         String query = "SELECT " + COLUMN_START_TIME + " FROM " + TABLE_NAME + " WHERE ()" + COLUMN_START_DATE + " = '" + dateSelected + "') AND (" + COLUMN_NAME + " = '" + name + "');";
@@ -152,13 +184,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
         StringBuffer buffer = new StringBuffer();
         String time = cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_START_TIME));
-        buffer.append(time);
+        buffer.append(name + "\n\t Event Starts at: " + time);
+        eTime.add(name + "\n\t Event Starts at: " + time);
 
         //CLOSE CONNECTION
         cursor.close();
         db.close();
 
         //RETURN TIME
-        return time;
+        return eTime;
     }
 }
