@@ -287,7 +287,7 @@ public class ReminderCreate extends AppCompatActivity {
                 //GET INFO ON SELECTED PLACE
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
                 remLocationName = place.getName();
-                remLocationId = place.getId();
+                remLocationId = String.valueOf(place.getLatLng());
             }
 
             @Override

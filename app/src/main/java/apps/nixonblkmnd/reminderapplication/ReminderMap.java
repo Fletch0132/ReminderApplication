@@ -2,12 +2,12 @@ package apps.nixonblkmnd.reminderapplication;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -31,14 +31,19 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.Manifest.permission;
-import static android.content.ContentValues.TAG;
-import static apps.nixonblkmnd.reminderapplication.R.id.txtMapUpcoming;
 
 public class ReminderMap extends FragmentActivity {
 
     private GoogleMap mMap;
+    private Geocoder geocoder;
     FusedLocationProviderClient client;
+    ArrayList<String> locNames = new ArrayList<>();
+    //ListView mapUpcoming;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,24 +53,14 @@ public class ReminderMap extends FragmentActivity {
         client = LocationServices.getFusedLocationProviderClient(this);
         Places.initialize(this, BuildConfig.GMP_KEY);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        ListView mapUpcoming = (ListView) findViewById(txtMapUpcoming);
+        //GOOGLE API - CONVERT LOCATION ID TO LAT LNG AND NAME
+        geocoder = new Geocoder(this);
 
-        //VIEW UPCOMING REMINDERS
-        ViewReminders();
+
 
         //METHOD FOR USER LOCATION
         getCurrentLocation(mapFragment);
 
-    }
-
-
-    //VIEW THE REMINDERS UPCOMING BASED ON LOCATION
-    public void ViewReminders(){
-        try {
-
-        }catch (Exception e){
-            Log.e(TAG,"Error displaying upcoming Map reminders");
-        }
     }
 
 
@@ -96,6 +91,9 @@ public class ReminderMap extends FragmentActivity {
                                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
                                     //SET MARKER LOCATION
                                     googleMap.addMarker(marker);
+
+                                    //SET LOCATION MARKERS
+                                    PlaceMarkers(googleMap, locNames);
                                 }
                             });
                         }
@@ -107,7 +105,7 @@ public class ReminderMap extends FragmentActivity {
             public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
                 Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                Uri uri = Uri.fromParts("package", getPackageName(),"");
+                Uri uri = Uri.fromParts("package", getPackageName(), "");
                 intent.setData(uri);
                 startActivity(intent);
             }
@@ -119,5 +117,31 @@ public class ReminderMap extends FragmentActivity {
         }).check();
     }
 
+    //VIEW REMINDER LOCATIONS ON MAP WITH MARKER
+    public void PlaceMarkers(GoogleMap googleMap, ArrayList<String> locNames) {
+        mMap = googleMap;
 
-}
+        try {
+            //GET LOCATION NAMES AND ID FROM DB
+            //LOOP THROUGH LIST TO RETRIEVE LOCATION NAME AND LOCATION ID
+            for (int i = 0; i < locNames.size(); i++) {
+                List<Address> addresses = geocoder.getFromLocationName(locNames.get(i), 1);
+                Address address = addresses.get(0);
+                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                MarkerOptions marker = new MarkerOptions().position(latLng).title(address.getLocality());
+                mMap.addMarker(marker);
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+            //NEW MARKER
+        }
+    }
+
+
+
+
+
+    //GET LAT LNG FROM LOCATIONID
+

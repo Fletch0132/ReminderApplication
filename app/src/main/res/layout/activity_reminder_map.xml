@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
 
-    <!-- DISPLAY UPCOMING REMINDERS -->
+    <!-- DISPLAY UPCOMING REMINDERS
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,17 +45,17 @@
         android:layout_marginTop="100dp"
         android:layout_marginLeft="80dp"
         android:layout_marginBottom="0dp"
-        android:textAlignment="center"/>
+        android:textAlignment="center"/>-->
 
     <!-- MAP BASE -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="530dp"
+        android:layout_height="700dp"
         android:orientation="vertical"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="0dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="90dp"
         android:background="@drawable/main_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -56,6 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL(query);
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME + ";");
@@ -63,7 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //ADD REMINDER TO DATABASE
-    public void addReminder(String remName, String remStartDate, String remStartTime, String remEndDate, String remEndTime, String remReminder, String remLocationName, String remLocationId, String remDescription){
+    public void addReminder(String remName, String remStartDate, String remStartTime, String remEndDate, String remEndTime, String remReminder, String remLocationName, String remLocationId, String remDescription) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -78,16 +79,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_DESCRIPTION, remDescription);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
-        if(result == -1){
+        if (result == -1) {
             Toast.makeText(context, "Error: Reminder could not be added", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             Toast.makeText(context, "Reminder Added Successfully", Toast.LENGTH_SHORT).show();
         }
     }
 
 
     //GET REMINDER NAME USING DATES FROM DATABASE
-    public ArrayList<String> getRems(){
+    public ArrayList<String> getRems() {
         SQLiteDatabase db = this.getReadableDatabase();
 
         //LIST FOR REMINDERS
@@ -102,7 +103,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
         StringBuffer buffer = new StringBuffer();
         //LOOP THROUGH DATES TO ADD REMS TO ARRAYLIST - REMINDERCALENDAR.CLASS
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             do {
                 String rem = cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_NAME));
                 buffer.append(rem);
@@ -116,7 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //GET EVENT NAMES FROM DATABASE FOR SELECTED DATE - REMINDERVIEW.JAVA
-    public ArrayList<String> getEventNames(String dateSelected){
+    public ArrayList<String> getEventNames(String dateSelected) {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<String> events = new ArrayList<>();
 
@@ -127,8 +128,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
         StringBuffer buffer = new StringBuffer();
         //LOOP THROUGH EVENTS AND STORE IN OBJECT
-        if(cursor.moveToFirst()) {
-            while (cursor.moveToNext()){
+        if (cursor.moveToFirst()) {
+            while (cursor.moveToNext()) {
                 //APPEND DETAILS
                 StringBuffer name = buffer.append(cursor.getString(1));
                 StringBuffer sTime = buffer.append(cursor.getString(3));
@@ -143,18 +144,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 //lOCATION NULL
                 String location;
-                if (locationN.toString() == "NULL"){
+                if (locationN.toString() == "NULL") {
                     location = "No location selected";
-                }
-                else {
+                } else {
                     location = locationN.toString();
                 }
 
                 //DESCRIPTION EMPTY
                 String des;
-                if (description.toString().isEmpty()){
+                if (description.toString().isEmpty()) {
                     des = "No description";
-                } else{
+                } else {
                     des = description.toString();
                 }
 
@@ -170,7 +170,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //FIND EVENT TIMES FOR SELECTED DATE AND EVENT NAME
-    public ArrayList<String> getEventTime(String name, String dateSelected){
+    public ArrayList<String> getEventTime(String name, String dateSelected) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         //LIST FOR DATA
@@ -194,4 +194,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //RETURN TIME
         return eTime;
     }
+
+    public ArrayList<String> getLocationName() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        //LIST FOR DATA
+        ArrayList<String> eLocation = new ArrayList<>();
+        eLocation.clear();
+
+        //QUERY TO GET EVENT START TIMES FROM DATABASE
+        String query = "SELECT " + COLUMN_LOCATION_NAME + " FROM " + TABLE_NAME + ";";
+
+        //TOOLS TO WORK THROUGH DATA
+        Cursor cursor = db.rawQuery(query, null);
+        StringBuffer buffer = new StringBuffer();
+        if (cursor.moveToFirst()){
+            do {
+                String loc = cursor.getString(cursor.getColumnIndex(databaseHelper.COLUMN_LOCATION_NAME));
+                buffer.append(loc);
+                eLocation.add(loc);
+            } while (cursor.moveToNext());
+        }
+        //CLOSE CONNECTION
+        cursor.close();
+        db.close();
+
+        //RETURN LOCATION
+        return eLocation;
+    }
+
+
+
 }
+
