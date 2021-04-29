@@ -50,48 +50,53 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <!-- ORG 1 -->
-                <EditText
-                    android:id="@+id/txtHelpInfo1"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnHelpInfo1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/info_bubble_a"
                     android:textSize="20dp"
+                    android:textAllCaps="false"
                     android:textColor="@color/black"/>
                 <!-- ORG 2 -->
-                <EditText
-                    android:id="@+id/txtHelpInfo2"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnHelpInfo2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/info_bubble_b"
                     android:layout_marginTop="20dp"
                     android:textSize="20dp"
+                    android:textAllCaps="false"
                     android:textColor="@color/black"/>
                 <!-- ORG 3 -->
-                <EditText
-                    android:id="@+id/txtHelpInfo3"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnHelpInfo3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/info_bubble_c"
                     android:layout_marginTop="20dp"
                     android:textSize="20dp"
+                    android:textAllCaps="false"
                     android:textColor="@color/black"/>
                 <!-- ORG 4 -->
-                <EditText
-                    android:id="@+id/txtHelpInfo4"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnHelpInfo4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/info_bubble_d"
                     android:layout_marginTop="20dp"
                     android:textSize="20dp"
+                    android:textAllCaps="false"
                     android:textColor="@color/black"/>
                 <!-- ORG 5 -->
-                <EditText
-                    android:id="@+id/txtHelpInfo5"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnHelpInfo5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/info_bubble_e"
                     android:layout_marginTop="20dp"
                     android:textSize="20dp"
+                    android:textAllCaps="false"
                     android:textColor="@color/black"/>
                 <!-- MORE ADDED -->
 

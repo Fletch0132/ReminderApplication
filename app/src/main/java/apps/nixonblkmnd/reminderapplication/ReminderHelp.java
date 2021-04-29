@@ -1,18 +1,18 @@
 package apps.nixonblkmnd.reminderapplication;
 
 import android.os.Bundle;
-import android.widget.EditText;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ReminderHelp extends AppCompatActivity {
 
     //DECLARE
-    EditText txtHelpInfo1;
-    EditText txtHelpInfo2;
-    EditText txtHelpInfo3;
-    EditText txtHelpInfo4;
-    EditText txtHelpInfo5;
+    Button btnHelpInfo1;
+    Button btnHelpInfo2;
+    Button btnHelpInfo3;
+    Button btnHelpInfo4;
+    Button btnHelpInfo5;
 
     //POSSIBLY ADDED TO DB SO MORE CAN BE ADDED?
     //COPY TEXT WHEN CLICKED - COPY NUMBER - CALL ORG
@@ -23,11 +23,11 @@ public class ReminderHelp extends AppCompatActivity {
         setContentView(R.layout.activity_reminder_help);
 
         //EDIT TEXT BOXES
-        txtHelpInfo1 = (EditText) findViewById(R.id.txtHelpInfo1);
-        txtHelpInfo2 = (EditText) findViewById(R.id.txtHelpInfo2);
-        txtHelpInfo3 = (EditText) findViewById(R.id.txtHelpInfo3);
-        txtHelpInfo4 = (EditText) findViewById(R.id.txtHelpInfo4);
-        txtHelpInfo5 = (EditText) findViewById(R.id.txtHelpInfo5);
+        btnHelpInfo1 = (Button) findViewById(R.id.btnHelpInfo1);
+        btnHelpInfo2 = (Button) findViewById(R.id.btnHelpInfo2);
+        btnHelpInfo3 = (Button) findViewById(R.id.btnHelpInfo3);
+        btnHelpInfo4 = (Button) findViewById(R.id.btnHelpInfo4);
+        btnHelpInfo5 = (Button) findViewById(R.id.btnHelpInfo5);
 
         //CALL METHODS TO FILL EDIT TEXT BOXES
         //ALL INFO FROM NHS - CHECK COPYRIGHT
@@ -43,7 +43,7 @@ public class ReminderHelp extends AppCompatActivity {
         String helpDes = ("Description: Charity providing support if you have been diagnosed with an anxiety condition.");
         String helpCon = ("Contact: \n03444 775 774 \nwww.anxietyuk.org.uk");
         String helpInfo = (helpOrg + "\n" + helpDes + "\n" + helpCon);
-        txtHelpInfo1.setText(helpInfo);
+        btnHelpInfo1.setText(helpInfo);
     }
 
     private void FillInfo2() {
@@ -51,7 +51,7 @@ public class ReminderHelp extends AppCompatActivity {
         String helpDes = ("Description: CALM is the Campaign Against Living Miserably. A charity providing a mental health helpline and webchat.");
         String helpCon = ("Contact: \n0800 58 58 58 \nwww.thecalmzone.net");
         String helpInfo = (helpOrg + "\n" + helpDes + "\n" + helpCon);
-        txtHelpInfo2.setText(helpInfo);
+        btnHelpInfo2.setText(helpInfo);
     }
 
     private void FillInfo3() {
@@ -59,7 +59,7 @@ public class ReminderHelp extends AppCompatActivity {
         String helpDes = ("Description: Promotes the views and needs of people with mental health problems.");
         String helpCon = ("Contact: \n0300 123 3393 \nwww.mind.org.uk");
         String helpInfo = (helpOrg + "\n" + helpDes + "\n" + helpCon);
-        txtHelpInfo3.setText(helpInfo);
+        btnHelpInfo3.setText(helpInfo);
     }
 
     private void FillInfo4() {
@@ -67,7 +67,7 @@ public class ReminderHelp extends AppCompatActivity {
         String helpDes = ("Description: Confidential support for people experiencing feelings of distress or despair.");
         String helpCon = ("Contact: \n116 123 \nwww.samaritans.org.uk");
         String helpInfo = (helpOrg + "\n" + helpDes + "\n" + helpCon);
-        txtHelpInfo4.setText(helpInfo);
+        btnHelpInfo4.setText(helpInfo);
     }
 
     private void FillInfo5() {
@@ -75,6 +75,6 @@ public class ReminderHelp extends AppCompatActivity {
         String helpDes = ("Description: Young Suicide prevention society.");
         String helpCon = ("Contact: \n0800 068 4141 \nwww.papyrus-uk.org");
         String helpInfo = (helpOrg + "\n" + helpDes + "\n" + helpCon);
-        txtHelpInfo5.setText(helpInfo);
+        btnHelpInfo5.setText(helpInfo);
     }
 }
