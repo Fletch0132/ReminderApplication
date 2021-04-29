@@ -29,7 +29,10 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 import apps.nixonblkmnd.reminderapplication.Formats.FormatDate;
 import apps.nixonblkmnd.reminderapplication.database.DatabaseHelper;
@@ -49,6 +52,9 @@ public class ReminderCreate extends AppCompatActivity {
     EditText txtRemDescription;
     Button btnAddReminder;
     String remName, remStartDate, remStartTime, remEndDate, remEndTime, remReminder, remLocationName, remLocationId, remDescription;
+    private DatePickerDialog.OnDateSetListener dateSetListener;
+    int sHour = 0;
+    int sMin = 0;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -68,6 +74,7 @@ public class ReminderCreate extends AppCompatActivity {
         txtRemEndTime = (TextView) findViewById(R.id.txtRemEndTime);
         txtRemRem = (Spinner) findViewById(R.id.txtRemRem);
         txtRemDescription = (EditText) findViewById(R.id.txtRemDescription);
+
 
 
 
@@ -102,6 +109,25 @@ public class ReminderCreate extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                try {
+                    Date start = simpleDateFormat.parse(remStartDate);
+
+                    //INITIALIZE CALENDAR
+                    Calendar calendar = Calendar.getInstance();
+                    //SET UP CURRENT YEAR, MONTH, DATE USING CALENDAR
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH);
+                    int date = calendar.get(Calendar.DATE);
+
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(ReminderCreate.this, dateSetListener, year, month, date);
+                    datePickerDialog.getDatePicker().setMinDate(start.getTime());
+                    datePickerDialog.show();
+
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 handleEndDate();
             }
         });
@@ -177,8 +203,10 @@ public class ReminderCreate extends AppCompatActivity {
             }
         }, year, month, date);
 
+
         //DISPLAY
         datePickerDialog.show();
+
     }
 
     //HANDLES THE START TIME INPUT
@@ -189,6 +217,8 @@ public class ReminderCreate extends AppCompatActivity {
         //SET TIME VARIABLES
         int hour = calendar.get(Calendar.HOUR);
         int minute = calendar.get(Calendar.MINUTE);
+        sHour = hour;
+        sMin = minute;
 
         //PICK TIME
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
@@ -206,28 +236,17 @@ public class ReminderCreate extends AppCompatActivity {
 
     //HANDLES THE END DATE INPUT
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void handleEndDate(){
-        //INITIALIZE CALENDAR
-        Calendar calendar = Calendar.getInstance();
-
-        //SET UP CURRENT YEAR, MONTH, DATE USING CALENDAR
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int date = calendar.get(Calendar.DATE);
-
+    private void handleEndDate() {
         //PICK DATE
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String endDateString = (String.format("%02d",dayOfMonth) + "/" + String.format("%02d",month + 1) + "/" + year);
+                String endDateString = (String.format("%02d", dayOfMonth) + "/" + String.format("%02d", month + 1) + "/" + year);
                 txtRemEndDate.setText(endDateString);
                 //CHANGES FORMAT OF YEAR FOR THE DATABASE END
                 remEndDate = FormatDate.DateFormatYear(endDateString);
             }
-        }, year, month, date);
-
-        //DISPLAY
-        datePickerDialog.show();
+        };
     }
 
     //HANDLES THE END TIME INPUT
@@ -243,9 +262,17 @@ public class ReminderCreate extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                String endTimeString = (String.format("%02d",hourOfDay) + ":" + String.format("%02d",minute));
-                txtRemEndTime.setText(endTimeString);
-                remEndTime = endTimeString;
+                if (hourOfDay < sHour) {
+                    Toast.makeText(ReminderCreate.this, "End Time cannot be before start time", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if ((hourOfDay == sHour) && (minute < sMin)) {
+                    Toast.makeText(ReminderCreate.this, "End Time cannot be before start time", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    String endTimeString = (String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
+                    txtRemEndTime.setText(endTimeString);
+                    remEndTime = endTimeString;
+                }
             }
         }, hour, minute, true);
 
